@@ -1,28 +1,40 @@
 #ifndef __FRONTIER_H_
 #define __FRONTIER_H_
-#include "segment.h"
+struct Segment_t;
 
-enum Direction {
+typedef enum {
     TOP,
     LEFT,
     RIGHT,
     DOWN,
-};
+} Direction;
 
-struct FrontierDirection_t {
+typedef struct {
     Direction direction;
-    Segment_t *segment;
-};
-void clone_frontier_direction(FrontierDirection_t *dest, FrontierDirection_t *original);
-FrontierNode_t *get_pointed_frontier_node(FrontierDirection_t *direction);
+    struct Segment_t *segment;
+} FrontierDirection_t;
 
-struct FrontierNode_t {
+/*
+ * Clones the frontier_direction. The Segment_t is not cloned, and the pointer is left unassigned
+ */
+void clone_frontier_direction(FrontierDirection_t *dest, FrontierDirection_t *original);
+
+typedef struct {
     short x;
     short y;
 
     int directions_count;
     FrontierDirection_t frontiers[];
-};
+} FrontierNode_t;
+
+/*
+ * Gets the Frontier Node that a direction is pointing
+ */
+FrontierNode_t *get_pointed_frontier_node(FrontierDirection_t *direction);
+
+/*
+ * Deep clones the frontier node
+ */
 void clone_frontier_node(FrontierNode_t *dest, FrontierNode_t *original);
 
 #endif
