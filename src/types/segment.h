@@ -8,22 +8,27 @@ typedef struct {
     short color;
     
     int frontiers_count;
-    FrontierNode_t frontiers[];
+    FrontierNode_t **frontiers;
 } Segment_t;
 
 /*
- * Deep clones the struct
+ * Clones the segmento. Each FrontierDirection_t respective Segment_t is not cloned, and the pointer is left unassigned
  */ 
 void clone_segment(Segment_t *dest, Segment_t *original);
 
 /*
  * Calculates the distance between a segment and a specified coordinate.
  */ 
-void segment_point_distance(Segment_t *segment, short x, short y);
+float segment_point_distance(Segment_t *segment, short x, short y);
 
 /*
  * Merges two segments in the segment_1
  */
 void merge(Segment_t *segment_1, Segment_t *segment_2);
+
+/*
+ * Prints a Segment_t;
+ */
+void print_segment(Segment_t *segment);
 
 #endif

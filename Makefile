@@ -6,7 +6,7 @@ TARGET := solver
 SOURCES := $(shell find $(SRCDIR) -type f -name *.c)
 OBJECTS := $(patsubst $(SRCDIR)/%, $(BUILDDIR)/%, $(SOURCES:.c=.o))
 
-CFLAGS := -g -O2 -Wall -Wextra -Isrc -Isrc/types 
+CFLAGS := -g -O2 -Wall -Wextra -Isrc -Isrc/types -lm
 LIB := -g 
 
 $(TARGET): $(OBJECTS)
@@ -19,4 +19,3 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 
 clean:
 	$(RM) -r $(BUILDDIR) $(TARGET)
-	
