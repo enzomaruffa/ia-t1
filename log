@@ -1,0 +1,67 @@
+width: 5
+height: 5
+colors: 4
+Read map called
+Read first line: 2 2 2 3 4
+
+Got a piece: 2
+Total read: 1
+Got a piece: 2
+Total read: 2
+Got a piece: 2
+Total read: 3
+Got a piece: 3
+Total read: 4
+Got a piece: 4
+
+Total read: 5
+Read other line
+Got a piece: 2
+Total read: 6
+Got a piece: 2
+Total read: 7
+Got a piece: 4
+Total read: 8
+Got a piece: 4
+Total read: 9
+Got a piece: 1
+
+Total read: 10
+Read other line
+Got a piece: 3
+Total read: 11
+Got a piece: 3
+Total read: 12
+Got a piece: 3
+Total read: 13
+Got a piece: 4
+Total read: 14
+Got a piece: 1
+
+Total read: 15
+Read other line
+Got a piece: 2
+Total read: 16
+Got a piece: 3
+Total read: 17
+Got a piece: 1
+Total read: 18
+Got a piece: 2
+Total read: 19
+Got a piece: 4
+
+Total read: 20
+Read other line
+Got a piece: 3
+Total read: 21
+Got a piece: 1
+Total read: 22
+Got a piece: 1
+Total read: 23
+Got a piece: 1
+Total read: 24
+Got a piece: 1
+
+Total read: 25
+Read other line
+2 2 2 3 4 2 2 4 4 1 3 3 3 4 1 2 3 1 2 4 3 1 1 1 1 

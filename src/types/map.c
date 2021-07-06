@@ -3,7 +3,16 @@
 #include "segment.h"
 #include "map.h"
 
-void create_map(Map_t *dest, char **matrix) {
+void create_map(Map_t *map, char *matrix, char width, char height) {
+    map->moves_count = 0;
+    map->segment_count = 0;
+
+    // TODO: Create segments and moves
+
+    // TODO: Go over the map creating each segment
+        // TODO: Go over each node in a stack to create each segment
+    
+    // TODO: After creating each segment, properly set up the frontiers links
 
 }
 

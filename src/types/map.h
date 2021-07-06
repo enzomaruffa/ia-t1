@@ -15,7 +15,7 @@ typedef struct {
 /*
  * Creates a map based on a matrix
  */
-void create_map(Map_t *dest, char **matrix);
+void create_map(Map_t *map, char *matrix, char width, char height);
 
 /*
  * Finds a segment in a map with a specific ID

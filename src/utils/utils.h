@@ -14,6 +14,6 @@ char read_parameters(char *width, char *height, char *colors_count);
 /* 
  * Reads the map from the stdin. Assumes that the first line has already been read
  */ 
-char read_map(char *map_dest);
+char read_map(char *map_dest, char line_count);
 
 #endif
