@@ -36,3 +36,16 @@ float segment_point_distance(Segment_t *segment, char x, char y) {
 void merge(Segment_t *segment_1, Segment_t *segment_2) {
 
 }
+
+void print_segment(Segment_t *segment) {
+
+}
+
+void free_segment(Segment_t *segment) {
+    for (int i = 0; i < segment->frontiers_count; i++) {
+        free_frontier_node(segment->frontiers[i]);
+    }
+
+    free(segment->frontiers);
+    free(segment);
+}

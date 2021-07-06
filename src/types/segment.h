@@ -31,4 +31,9 @@ void merge(Segment_t *segment_1, Segment_t *segment_2);
  */
 void print_segment(Segment_t *segment);
 
+/*
+ * Frees a Segment_t;
+ */
+void free_segment(Segment_t *segment);
+
 #endif

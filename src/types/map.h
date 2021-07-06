@@ -37,4 +37,10 @@ void paint_map(Map_t *dest, char color);
  */
 void print_map(Map_t *map);
 
+/*
+ * Frees a Map_t
+ */
+void free_map(Map_t *map);
+
+
 #endif

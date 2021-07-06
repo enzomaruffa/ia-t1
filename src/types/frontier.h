@@ -25,6 +25,11 @@ void clone_frontier_direction(FrontierDirection_t *dest, FrontierDirection_t *or
  */
 void print_frontier_direction(FrontierDirection_t *direction);
 
+/*
+ * Frees a FrontierDirection_t
+ */
+void free_frontier_direction(FrontierDirection_t *direction);
+
 typedef struct {
     char x;
     char y;
@@ -47,5 +52,10 @@ void clone_frontier_node(FrontierNode_t *dest, FrontierNode_t *original);
  * Prints a FrontierNode_t
  */
 void print_frontier_node(FrontierNode_t *node);
+
+/*
+ * Frees a FrontierNode_t
+ */
+void free_frontier_node(FrontierNode_t *node);
 
 #endif

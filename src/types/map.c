@@ -13,7 +13,15 @@ void create_map(Map_t *map, char *matrix, char width, char height) {
         // TODO: Go over each node in a stack to create each segment
     
     // TODO: After creating each segment, properly set up the frontiers links
+}
 
+Segment_t *find_segment_by_id(Map_t *map, char id) {
+    for (int i = 0; i < map->segment_count; i++) {
+        if (map->segments[i]->id == id) {
+            return map->segments[i];
+        }
+    }
+    return NULL;
 }
 
 void clone_map(Map_t *dest, Map_t *original) {
@@ -70,11 +78,15 @@ void paint_map(Map_t *dest, char color) {
 
 }
 
-Segment_t *find_segment_by_id(Map_t *map, char id) {
+void print_map(Map_t *map) {
+
+}
+
+void free_map(Map_t *map) {
     for (int i = 0; i < map->segment_count; i++) {
-        if (map->segments[i]->id == id) {
-            return map->segments[i];
-        }
+        free_segment(map->segments[i]);
     }
-    return NULL;
+    free(map->segments);
+    free(map->moves);
+    free(map);
 }
