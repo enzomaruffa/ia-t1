@@ -1,7 +1,7 @@
 #ifndef __FRONTIER_H_
 #define __FRONTIER_H_
 // TODO: Strozzi
-struct Segment_t { short id; };
+struct Segment_t { char id; };
 
 typedef enum {
     TOP,
@@ -26,8 +26,8 @@ void clone_frontier_direction(FrontierDirection_t *dest, FrontierDirection_t *or
 void print_frontier_direction(FrontierDirection_t *direction);
 
 typedef struct {
-    short x;
-    short y;
+    char x;
+    char y;
 
     int directions_count;
     FrontierDirection_t **frontiers;

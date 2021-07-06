@@ -4,7 +4,7 @@
 
 typedef struct {
     int moves_count;
-    short* moves;
+    char* moves;
 
     Segment_t *initial_segment;
 
@@ -15,12 +15,12 @@ typedef struct {
 /*
  * Creates a map based on a matrix
  */
-void create_map(Map_t *dest, short **matrix);
+void create_map(Map_t *dest, char **matrix);
 
 /*
  * Finds a segment in a map with a specific ID
  */
-Segment_t *find_segment_by_id(Map_t *map, short id);
+Segment_t *find_segment_by_id(Map_t *map, char id);
 
 /*
  * Deep clones the map
@@ -30,7 +30,7 @@ void clone_map(Map_t *dest, Map_t *original);
 /*
  * Paints the map with a specified color
  */
-void paint_map(Map_t *dest, short color);
+void paint_map(Map_t *dest, char color);
 
 /*
  * Prints a Map_t;

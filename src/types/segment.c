@@ -19,7 +19,7 @@ void clone_segment(Segment_t *dest, Segment_t *original) {
     }
 }
 
-float segment_point_distance(Segment_t *segment, short x, short y) {
+float segment_point_distance(Segment_t *segment, char x, char y) {
     float smallest_distance = 10000;
 
     for (int i = 0; i < segment->frontiers_count; i++) {

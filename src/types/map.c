@@ -3,14 +3,14 @@
 #include "segment.h"
 #include "map.h"
 
-void create_map(Map_t *dest, short **matrix) {
+void create_map(Map_t *dest, char **matrix) {
 
 }
 
 void clone_map(Map_t *dest, Map_t *original) {
     dest->moves_count = original->moves_count;
 
-    int moves_size = sizeof(short) * original->moves_count;
+    int moves_size = sizeof(char) * original->moves_count;
     dest->moves = malloc(moves_size);
     memcpy(dest, original, moves_size);
 
@@ -45,7 +45,7 @@ void clone_map(Map_t *dest, Map_t *original) {
                 FrontierDirection_t *clone_direction = clone_frontier->frontiers[k];
 
                 // The direction segment ID
-                short segment_id = original_direction->segment->id;
+                char segment_id = original_direction->segment->id;
 
                 Segment_t *clone_direction_result = find_segment_by_id(dest, segment_id);
 
@@ -57,11 +57,11 @@ void clone_map(Map_t *dest, Map_t *original) {
 
 }
 
-void paint_map(Map_t *dest, short color) {
+void paint_map(Map_t *dest, char color) {
 
 }
 
-Segment_t *find_segment_by_id(Map_t *map, short id) {
+Segment_t *find_segment_by_id(Map_t *map, char id) {
     for (int i = 0; i < map->segment_count; i++) {
         if (map->segments[i]->id == id) {
             return map->segments[i];

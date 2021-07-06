@@ -4,6 +4,16 @@
 /* 
  * Returns the square of the distance between two points
  */ 
-float point_squared_distance(short x_1, short y_1, short x_2, short y_2);
+float point_squared_distance(char x_1, char y_1, char x_2, char y_2);
+
+/* 
+ * Reads the parameters from the stdin
+ */ 
+char read_parameters(char *width, char *height, char *colors_count);
+
+/* 
+ * Reads the map from the stdin. Assumes that the first line has already been read
+ */ 
+char read_map(char *map_dest);
 
 #endif

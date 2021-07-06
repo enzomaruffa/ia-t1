@@ -9,7 +9,8 @@ lines = int(sys.argv[1])
 columns = int(sys.argv[2])
 colors = int(sys.argv[3])
 
-os.makedirs('generated_maps')
+if not os.path.isdir('generated_maps'): 
+    os.makedirs('generated_maps')
 
 f = open(f"generated_maps/map-{lines}-{columns}-{colors}", "w")
 f.write(f"{lines} {columns} {colors}\n")
