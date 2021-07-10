@@ -22,6 +22,11 @@ void clone_segment(Segment_t *dest, Segment_t *original);
 float segment_point_distance(Segment_t *segment, char x, char y);
 
 /*
+ * Find a frontier node with a given X and Y
+ */ 
+FrontierNode_t *find_node_by_position(Segment_t *segment, char x, char y);
+
+/*
  * Merges two segments in the segment_1
  */
 void merge(Segment_t *segment_1, Segment_t *segment_2);

@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "frontier.h"
+#include "segment.h"
 
 void clone_frontier_direction(FrontierDirection_t *dest, FrontierDirection_t *original) {
     dest->direction = original->direction;
@@ -16,7 +17,7 @@ void free_frontier_direction(FrontierDirection_t *direction) {
 // ===========================
 
 FrontierNode_t *get_pointed_frontier_node(FrontierDirection_t *direction) {
-
+    return direction->pointed_node;
 }
 
 void clone_frontier_node(FrontierNode_t *dest, FrontierNode_t *original) {
@@ -29,6 +30,7 @@ void clone_frontier_node(FrontierNode_t *dest, FrontierNode_t *original) {
     for (int i = 0; i < original->directions_count; i++) {
         FrontierDirection_t *clone = malloc(sizeof(FrontierDirection_t));
         clone_frontier_direction(clone, original->frontiers[i]);
+        clone->parent_node = dest;
         // TODO: Strozzi
         dest->frontiers[i] = clone;
     }

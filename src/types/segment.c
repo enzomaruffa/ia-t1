@@ -14,7 +14,10 @@ void clone_segment(Segment_t *dest, Segment_t *original) {
 
     for (int i = 0; i < original->frontiers_count; i++) {
         FrontierNode_t *clone = malloc(sizeof(FrontierNode_t));
+
         clone_frontier_node(clone, original->frontiers[i]);
+        clone->parent_segment = dest;
+
         dest->frontiers[i] = clone;
     }
 }
@@ -31,6 +34,17 @@ float segment_point_distance(Segment_t *segment, char x, char y) {
     }
 
     return sqrt(smallest_distance);
+}
+
+FrontierNode_t *find_node_by_position(Segment_t *segment, char x, char y) {
+    for (int i = 0; i < segment->frontiers_count; i++) {
+        FrontierNode_t *node = segment->frontiers[i];
+
+        if (node->x == x && node->y == y) {
+            return node;
+        }
+    }
+    return NULL;
 }
 
 void merge(Segment_t *segment_1, Segment_t *segment_2) {

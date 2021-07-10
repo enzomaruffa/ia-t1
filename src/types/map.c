@@ -62,12 +62,13 @@ void clone_map(Map_t *dest, Map_t *original) {
                 FrontierDirection_t *clone_direction = clone_frontier->frontiers[k];
 
                 // The direction segment ID
-                char segment_id = original_direction->segment->id;
-
-                Segment_t *clone_direction_result = find_segment_by_id(dest, segment_id);
+                char original_pointed_x = original_direction->pointed_node->x;
+                char original_pointed_y = original_direction->pointed_node->y;
+                
+                FrontierNode_t *clone_pointed_node = find_node_by_position(clone_segment, original_pointed_x, original_pointed_y);
 
                 // Attribute to clone
-                clone_direction->segment = clone_direction_result;
+                clone_direction->pointed_node = clone_pointed_node;
             }
         }
     }
