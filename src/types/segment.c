@@ -52,7 +52,7 @@ void merge(Segment_t *segment_1, Segment_t *segment_2) {
 }
 
 void print_segment(Segment_t *segment) {
-
+    printf("Segment %d with size %d, %d frontiers and color %d\n", segment->id, segment->size, segment->frontiers, segment->color);
 }
 
 void free_segment(Segment_t *segment) {

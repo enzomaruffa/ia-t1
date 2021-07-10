@@ -7,7 +7,7 @@ void clone_frontier_direction(FrontierDirection_t *dest, FrontierDirection_t *or
 }
 
 void print_frontier_direction(FrontierDirection_t *direction) {
-
+    printf("Direction %d pointing to node in (%d, %d)\n", direction->direction, direction->pointed_node->x, direction->pointed_node->y); 
 }
 
 void free_frontier_direction(FrontierDirection_t *direction) {
@@ -37,7 +37,7 @@ void clone_frontier_node(FrontierNode_t *dest, FrontierNode_t *original) {
 }
 
 void print_frontier_node(FrontierNode_t *node) {
-
+    printf("Node in (%d, %d) that belongs to segment with ID %d\n", node->x, node->y, node->parent_segment->id); 
 }
 
 void free_frontier_node(FrontierNode_t *node) {

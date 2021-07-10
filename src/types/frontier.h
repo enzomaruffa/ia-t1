@@ -1,10 +1,15 @@
 #ifndef __FRONTIER_H_
 #define __FRONTIER_H_
 // TODO: Strozzi
+struct Segment_t {
+    char id;
+};
+
 struct FrontierNode_t { 
     char x;
     char y;
 };
+
 typedef enum {
     TOP,
     LEFT,
@@ -40,7 +45,7 @@ typedef struct {
     int directions_count;
     FrontierDirection_t **frontiers;
 
-    Segment_t *parent_segment;
+    struct Segment_t *parent_segment;
 } FrontierNode_t;
 
 /*

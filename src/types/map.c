@@ -80,7 +80,7 @@ void paint_map(Map_t *dest, char color) {
 }
 
 void print_map(Map_t *map) {
-
+    
 }
 
 void free_map(Map_t *map) {
