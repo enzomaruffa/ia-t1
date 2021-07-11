@@ -6,8 +6,8 @@ struct Segment_t {
 };
 
 struct FrontierNode_t { 
-    char x;
-    char y;
+    char i;
+    char j;
 };
 
 typedef enum {
@@ -41,8 +41,8 @@ void print_frontier_direction(FrontierDirection_t *direction);
 void free_frontier_direction(FrontierDirection_t *direction);
 
 typedef struct {
-    char x;
-    char y;
+    char i;
+    char j;
 
     int directions_count;
     FrontierDirection_t **frontiers;

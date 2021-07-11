@@ -18,29 +18,34 @@ void check_neighbour(Segment_t *new_segment,
                         char *matrix,
                         char width, 
                         char height, 
-                        char x, 
-                        char y,
+                        char i, 
+                        char j,
                         FrontierNode_t *parent_node,
-                        char delta_x, 
-                        char delta_y,
+                        char delta_i, 
+                        char delta_j,
                         Direction direction,
-                        char *xs_queue, 
-                        char *ys_queue, 
+                        char *is_queue, 
+                        char *js_queue, 
                         int *queue_max_index) {
-    char neighbour_x = x + delta_x;
-    char neighbour_y = y + delta_y;
+    char neighbour_i = i + delta_i;
+    char neighbour_j = j + delta_j;
 
-    if (neighbour_x > 0 && neighbour_x < width && neighbour_y > 0 && neighbour_y < height) {
+    printf("            Checking neighbour in %d, %d against %d, %d\n", neighbour_i, neighbour_j, width, height);
+
+    if (neighbour_i >= 0 && neighbour_i < height && neighbour_j >= 0 && neighbour_j < width) {
         // Check neighbour
-        char neighbour_color = matrix[neighbour_y * width + neighbour_x];
+        char neighbour_color = matrix[neighbour_i * width + neighbour_j];
+        printf("                Neighbour has color %d\n", neighbour_color);
 
         if (neighbour_color == new_segment->color) {
             // Push other to queue
-            xs_queue[*queue_max_index] = neighbour_x;
-            ys_queue[*queue_max_index] = neighbour_y;
+            printf("                Neighbour belongs to the same color! Pushing to the queue...\n");
+            is_queue[*queue_max_index] = neighbour_i;
+            js_queue[*queue_max_index] = neighbour_j;
             *queue_max_index += 1;
         } else {                        
             // If neighbour has other color, add a frontier
+            printf("                Neighbour is from a diff segment\n");
             FrontierDirection_t *new_frontier = malloc(sizeof(FrontierDirection_t));
             new_frontier->direction = direction;
 
@@ -51,8 +56,8 @@ void check_neighbour(Segment_t *new_segment,
             // Check if a segment in that position already exists
             FrontierNode_t *pointed_node = NULL;
 
-            for (int i = 0; i < map->segment_count; i++) {
-                pointed_node = find_node_by_position(map->segments[i], neighbour_x, neighbour_y);
+            for (int k = 0; k < map->segment_count; k++) {
+                pointed_node = find_node_by_position(map->segments[k], neighbour_i, neighbour_j);
                 if (pointed_node) {
                     break;
                 }
@@ -60,15 +65,20 @@ void check_neighbour(Segment_t *new_segment,
 
             // If exists, make link and backlink
             if (pointed_node) {
+                printf("                Found the pointed node:\n");
+                print_frontier_node(pointed_node);
                 new_frontier->pointed_node = pointed_node;
 
                 Direction opposite = opposite_direction(direction);
 
+                printf("                Looking for the frontier with direction %d, which is opposite to our %d in the other node!\n", opposite, direction);
                 // Find the opposite frontier direction in the node
-                for (int i = 0; i < pointed_node->directions_count; i++) {
-                    FrontierDirection_t *other_direction = pointed_node->frontiers[i];
+                for (int k = 0; k < pointed_node->directions_count; k++) {
+                    FrontierDirection_t *other_direction = pointed_node->frontiers[k];
+                    printf("                For k %d, other_direction is %d\n", k, other_direction->direction);
 
                     if (other_direction->direction == opposite) {
+                        printf("                Found frontier in the other. Backlink created!\n");
                         other_direction->pointed_node = parent_node;
                         break;
                     }
@@ -81,36 +91,41 @@ void check_neighbour(Segment_t *new_segment,
 void expand_segment(Segment_t *new_segment, 
                     Map_t *map, 
                     char *matrix, 
-                    char *checked_xs, 
-                    char *checked_ys, 
+                    char *checked_is, 
+                    char *checked_js, 
                     int *check_size, 
                     char width, 
                     char height, 
-                    char *xs_queue, 
-                    char *ys_queue, 
-                    char original_x, 
-                    char original_y) {
+                    char *is_queue, 
+                    char *js_queue, 
+                    char original_i, 
+                    char original_j) {
 
     int queue_max_index = 0;
     int queue_check_index = 0;
 
-    xs_queue[queue_max_index] = original_x;
-    ys_queue[queue_max_index] = original_y;
+    is_queue[queue_max_index] = original_i;
+    js_queue[queue_max_index] = original_j;
     queue_max_index += 1;
+
+    printf("    Added %d, %d to the queue\n", original_i, original_j);
 
     while (queue_check_index < queue_max_index) {
         // Check if has been checked (double added to the queue)
-        char queue_x = xs_queue[queue_check_index];
-        char queue_y = ys_queue[queue_check_index];
+        char queue_i = is_queue[queue_check_index];
+        char queue_j = js_queue[queue_check_index];
         queue_check_index += 1;
 
-        if (has_checked_position(checked_xs, checked_ys, *check_size, queue_x, queue_y)) {
+        printf("    Checking %d, %d from the queue\n", queue_i, queue_j);
+
+        if (has_checked_position(checked_is, checked_js, *check_size, queue_i, queue_j)) {
+            printf("        Had previously checked... Returning\n");
             continue;
         }
 
         // Add to checked
-        checked_xs[*check_size] = queue_x;
-        checked_ys[*check_size] = queue_y;
+        checked_is[*check_size] = queue_i;
+        checked_js[*check_size] = queue_j;
         *check_size += 1;
 
         // Add properties to segment
@@ -118,56 +133,66 @@ void expand_segment(Segment_t *new_segment,
 
         // Create a node for this position
         FrontierNode_t *node = malloc(sizeof(FrontierNode_t));
+        node->parent_segment = new_segment;
         node->directions_count = 0;
+        node->i = queue_i;
+        node->j = queue_j;
         node->frontiers = malloc(sizeof(FrontierDirection_t) * 4);
 
+        printf("        Created a frontier node at:\n");
+        print_frontier_node(node);
+
+        printf("        Analyzing neighbours...\n");
         // === Check neighbours
         // Check the top neighbour
         check_neighbour(new_segment, map, matrix,
                         width, height, 
-                        queue_x, queue_y,
+                        queue_i, queue_j,
                         node,
                         0, -1, TOP,
-                        xs_queue, ys_queue, 
+                        is_queue, js_queue, 
                         &queue_max_index);
 
         // Check the left neighbour
         check_neighbour(new_segment, map, matrix,
                         width, height, 
-                        queue_x, queue_y,
+                        queue_i, queue_j,
                         node,
                         -1, 0, LEFT,
-                        xs_queue, ys_queue, 
+                        is_queue, js_queue, 
                         &queue_max_index);
 
         // Check the right neighbour
         check_neighbour(new_segment, map, matrix,
                         width, height, 
-                        queue_x, queue_y,
+                        queue_i, queue_j,
                         node,
                         1, 0, RIGHT,
-                        xs_queue, ys_queue, 
+                        is_queue, js_queue, 
                         &queue_max_index);
 
         // Check the bottom neighbour
         check_neighbour(new_segment, map, matrix,
                         width, height, 
-                        queue_x, queue_y,
+                        queue_i, queue_j,
                         node,
                         0, 1, DOWN,
-                        xs_queue, ys_queue, 
+                        is_queue, js_queue, 
                         &queue_max_index);
+
+        printf("        After analysis: \n");
+        print_frontier_node(node);
 
         // Check if node has == 0 directions. If so, delete node
         if (node->directions_count == 0) {
+            printf("        Node has 0 directions, so freeing it\n");
             free_frontier_node(node);
         } else {
-            node->parent_segment = new_segment;
-
+            printf("        Node has %d directions, so reallocating it\n", node->directions_count);
             node->frontiers = realloc(node->frontiers, sizeof(FrontierDirection_t) * node->directions_count);
 
             new_segment->frontiers[new_segment->frontiers_count] = node;
-            new_segment->frontiers += 1;
+            new_segment->frontiers_count += 1;
         }
     }
 }
@@ -175,26 +200,27 @@ void expand_segment(Segment_t *new_segment,
 void create_map(Map_t *map, char *matrix, char width, char height) {
     map->moves_count = 0;
     map->segment_count = 0;
+    map->segments = malloc(sizeof(Segment_t) * width * height);
 
     int next_segment_id = 0;
 
     // List of verified nodes
     int check_size = 0;
-    char *checked_xs = malloc(sizeof(char) * width * height);
-    char *checked_ys = malloc(sizeof(char) * width * height);
+    char *checked_is = malloc(sizeof(char) * width * height);
+    char *checked_js = malloc(sizeof(char) * width * height);
 
     // Stack of nodes to check
-    char *xs_queue = malloc(sizeof(char) * width * height);
-    char *ys_queue = malloc(sizeof(char) * width * height);
+    char *is_queue = malloc(sizeof(char) * width * height);
+    char *js_queue = malloc(sizeof(char) * width * height);
+
+    printf("Finished setup of the map. Current state: \n");
+    print_map(map);
 
     // TODO: Create segments and moves
-    for (int x = 0; x < width; x++) {
-        for (int y = 0; y < width; y++) {
-            if (!has_checked_position(checked_xs, checked_ys, check_size, x, y)) {
-                checked_xs[check_size] = x;
-                checked_ys[check_size] = y;
-                check_size += 1;
-
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            printf("Checking i, j (%d, %d)\n", i, j);
+            if (!has_checked_position(checked_is, checked_js, check_size, i, j)) {
                 // Create a new segment
                 Segment_t *new_segment = malloc(sizeof(Segment_t));
 
@@ -206,16 +232,23 @@ void create_map(Map_t *map, char *matrix, char width, char height) {
                 new_segment->frontiers_count = 0;
                 new_segment->frontiers = malloc(sizeof(FrontierNode_t) * width * height);
 
-                new_segment->color = matrix[y * width + x];
+                new_segment->color = matrix[i * width + j];
+
+                printf("Created a new segment in: \n");
+                print_segment(new_segment);
 
                 expand_segment(new_segment, map, matrix, 
-                                checked_xs, checked_ys, &check_size,
+                                checked_is, checked_js, &check_size,
                                 width, height,
-                                xs_queue, ys_queue,
-                                x, y);
+                                is_queue, js_queue,
+                                i, j);
+
+                printf("Finished expanding. Segment now: \n");
+                print_segment(new_segment);
 
                 // Reduce the size of the segments
                 new_segment->frontiers = realloc(new_segment->frontiers, sizeof(FrontierNode_t) * new_segment->frontiers_count);
+                printf("Reallocated segment.\n");
 
                 // Add segment to segments
                 map->segments[map->segment_count] = new_segment;
@@ -229,10 +262,13 @@ void create_map(Map_t *map, char *matrix, char width, char height) {
     // Reduce the size of the map
     map->segments = realloc(map->segments, sizeof(Segment_t) * map->segment_count);
 
-    free(checked_xs);
-    free(checked_ys);
-    free(xs_queue);
-    free(ys_queue);
+    printf("Finished map. Map now: \n");
+    print_map(map);
+
+    free(checked_is);
+    free(checked_js);
+    free(is_queue);
+    free(js_queue);
 }
 
 
@@ -283,8 +319,8 @@ void clone_map(Map_t *dest, Map_t *original) {
                 FrontierDirection_t *clone_direction = clone_frontier->frontiers[k];
 
                 // The direction segment ID
-                char original_pointed_x = original_direction->pointed_node->x;
-                char original_pointed_y = original_direction->pointed_node->y;
+                char original_pointed_x = original_direction->pointed_node->i;
+                char original_pointed_y = original_direction->pointed_node->j;
                 
                 FrontierNode_t *clone_pointed_node = find_node_by_position(clone_segment, original_pointed_x, original_pointed_y);
 
@@ -301,7 +337,7 @@ void paint_map(Map_t *dest, char color) {
 }
 
 void print_map(Map_t *map) {
-    
+    printf("Map with %d moves and %d segments\n", map->moves_count, map->segment_count);
 }
 
 void free_map(Map_t *map) {

@@ -4,7 +4,7 @@
 #include "segment.h"
 
 inline Direction opposite_direction(Direction direction) {
-    return direction + 2 % 4;
+    return (direction + 2) % 4;
 }
 
 // ===========================
@@ -14,7 +14,7 @@ void clone_frontier_direction(FrontierDirection_t *dest, FrontierDirection_t *or
 }
 
 void print_frontier_direction(FrontierDirection_t *direction) {
-    printf("Direction %d pointing to node in (%d, %d)\n", direction->direction, direction->pointed_node->x, direction->pointed_node->y); 
+    printf("Direction %d pointing to node in (%d, %d)\n", direction->direction, direction->pointed_node->i, direction->pointed_node->j); 
 }
 
 void free_frontier_direction(FrontierDirection_t *direction) {
@@ -28,8 +28,8 @@ FrontierNode_t *get_pointed_frontier_node(FrontierDirection_t *direction) {
 }
 
 void clone_frontier_node(FrontierNode_t *dest, FrontierNode_t *original) {
-    dest->x = original->x;
-    dest->y = original->y;
+    dest->i = original->i;
+    dest->j = original->j;
     dest->directions_count = original->directions_count;
     
     dest->frontiers = malloc(sizeof(FrontierDirection_t) * original->directions_count);
@@ -44,7 +44,7 @@ void clone_frontier_node(FrontierNode_t *dest, FrontierNode_t *original) {
 }
 
 void print_frontier_node(FrontierNode_t *node) {
-    printf("Node in (%d, %d) that belongs to segment with ID %d\n", node->x, node->y, node->parent_segment->id); 
+    printf("Node in (%d, %d), with %d directions that belongs to segment with ID %d\n", node->i, node->j, node->directions_count, node->parent_segment->id); 
 }
 
 void free_frontier_node(FrontierNode_t *node) {
