@@ -12,10 +12,12 @@ struct FrontierNode_t {
 
 typedef enum {
     TOP,
-    LEFT,
     RIGHT,
     DOWN,
+    LEFT,
 } Direction;
+
+Direction opposite_direction(Direction direction);
 
 typedef struct FrontierDirection_t {
     Direction direction;

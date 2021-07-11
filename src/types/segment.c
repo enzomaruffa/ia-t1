@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <math.h>
 #include "frontier.h"
 #include "segment.h"
@@ -52,7 +53,7 @@ void merge(Segment_t *segment_1, Segment_t *segment_2) {
 }
 
 void print_segment(Segment_t *segment) {
-    printf("Segment %d with size %d, %d frontiers and color %d\n", segment->id, segment->size, segment->frontiers, segment->color);
+    printf("Segment %d with size %d, %d frontiers and color %d\n", segment->id, segment->size, segment->frontiers_count, segment->color);
 }
 
 void free_segment(Segment_t *segment) {

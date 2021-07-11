@@ -1,6 +1,13 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "frontier.h"
 #include "segment.h"
+
+inline Direction opposite_direction(Direction direction) {
+    return direction + 2 % 4;
+}
+
+// ===========================
 
 void clone_frontier_direction(FrontierDirection_t *dest, FrontierDirection_t *original) {
     dest->direction = original->direction;
