@@ -41,5 +41,7 @@ int main() {
         }
     }
 
+    free_map(map);
+
     return 0;
 }

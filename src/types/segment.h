@@ -3,8 +3,8 @@
 #include "frontier.h"
 
 typedef struct {
-    char id;
-    char size;
+    int id;
+    int size;
     char color;
     
     int frontiers_count;
@@ -19,12 +19,12 @@ void clone_segment(Segment_t *dest, Segment_t *original);
 /*
  * Calculates the distance between a segment and a specified coordinate.
  */ 
-float segment_point_distance(Segment_t *segment, char x, char y);
+float segment_point_distance(Segment_t *segment, char i, char j);
 
 /*
  * Find a frontier node with a given X and Y
  */ 
-FrontierNode_t *find_node_by_position(Segment_t *segment, char x, char y);
+FrontierNode_t *find_node_by_position(Segment_t *segment, char i, char j);
 
 /*
  * Merges two segments in the segment_1

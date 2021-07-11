@@ -2,12 +2,13 @@
 #define __FRONTIER_H_
 // TODO: Strozzi
 struct Segment_t {
-    char id;
+    int id;
 };
 
 struct FrontierNode_t { 
     char i;
     char j;
+    struct Segment_t *parent_segment;
 };
 
 typedef enum {

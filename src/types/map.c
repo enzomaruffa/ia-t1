@@ -50,22 +50,25 @@ void check_neighbour(Segment_t *new_segment,
             new_frontier->direction = direction;
 
             // Add to the parent node
+            printf("                Adding to the parent node\n");
             parent_node->frontiers[parent_node->directions_count] = new_frontier;
             parent_node->directions_count += 1;
 
             // Check if a segment in that position already exists
             FrontierNode_t *pointed_node = NULL;
 
+            printf("                Searching for the pointed_node\n");
             for (int k = 0; k < map->segment_count; k++) {
                 pointed_node = find_node_by_position(map->segments[k], neighbour_i, neighbour_j);
                 if (pointed_node) {
+                    printf("                Found the pointed nod1e\n");
                     break;
                 }
             }
 
             // If exists, make link and backlink
             if (pointed_node) {
-                printf("                Found the pointed node:\n");
+                printf("                Pointed node:\n");
                 print_frontier_node(pointed_node);
                 new_frontier->pointed_node = pointed_node;
 
