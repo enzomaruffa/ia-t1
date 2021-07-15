@@ -37,6 +37,11 @@ void merge(Segment_t *segment_1, Segment_t *segment_2);
 void print_segment(Segment_t *segment);
 
 /*
+ * Removes a FrontierNode_t from a segment at a position
+ */
+void remove_frontier_node(Segment_t *segment, int position);
+
+/*
  * Frees a Segment_t;
  */
 void free_segment(Segment_t *segment);

@@ -14,7 +14,7 @@ void clone_frontier_direction(FrontierDirection_t *dest, FrontierDirection_t *or
 }
 
 void print_frontier_direction(FrontierDirection_t *direction) {
-    printf("Direction %d pointing to node in (%d, %d)\n", direction->direction, direction->pointed_node->i, direction->pointed_node->j); 
+    printf("Direction %d pointing to node in (%d, %d) which belongs to segment %d and has color %d\n", direction->direction, direction->pointed_node->i, direction->pointed_node->j, direction->pointed_node->parent_segment->id, direction->pointed_node->parent_segment->color); 
 }
 
 void free_frontier_direction(FrontierDirection_t *direction) {
@@ -44,7 +44,27 @@ void clone_frontier_node(FrontierNode_t *dest, FrontierNode_t *original) {
 }
 
 void print_frontier_node(FrontierNode_t *node) {
-    printf("Node in (%d, %d), with %d directions that belongs to segment with ID %d\n", node->i, node->j, node->directions_count, node->parent_segment->id); 
+    // print_segment(node->parent_segment);
+    printf("Node in (%d, %d), with %d directions that belongs to segment with ID %d and color %d\n", node->i, node->j, node->directions_count, node->parent_segment->id, node->parent_segment->color); 
+}
+
+
+void remove_frontier_direction(FrontierNode_t *node, int position) {
+    FrontierDirection_t *dir = node->frontiers[position];
+    free_frontier_direction(dir);
+
+    // If it's not the last, update positions
+    if (node->directions_count - 1 != position) {
+        node->frontiers[position] = node->frontiers[node->directions_count - 1];
+    } 
+
+    node->directions_count -= 1;
+
+    if (node->directions_count == 0) {
+        free(node->frontiers);
+    } else {
+        node->frontiers = realloc(node->frontiers, sizeof(FrontierDirection_t) * node->directions_count);
+    }
 }
 
 void free_frontier_node(FrontierNode_t *node) {

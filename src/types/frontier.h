@@ -3,11 +3,15 @@
 // TODO: Strozzi
 struct Segment_t {
     int id;
+    int size;
+    char color;
+    int frontiers_count;
 };
 
 struct FrontierNode_t { 
     char i;
     char j;
+    int directions_count;
     struct Segment_t *parent_segment;
 };
 
@@ -65,6 +69,11 @@ void clone_frontier_node(FrontierNode_t *dest, FrontierNode_t *original);
  * Prints a FrontierNode_t
  */
 void print_frontier_node(FrontierNode_t *node);
+
+/*
+ * Removes a FrontierDirection_t from a node at a position
+ */
+void remove_frontier_direction(FrontierNode_t *node, int position);
 
 /*
  * Frees a FrontierNode_t

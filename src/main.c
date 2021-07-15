@@ -19,29 +19,12 @@ int main() {
     Map_t *map = malloc(sizeof(Map_t));
     create_map(map, map_cells, width, height);
 
-    printf("=================\n");
-    printf("======== MAP ==\n");
-    print_map(map);
+    print_full_map(map);
 
-    for (int i = 0; i < map->segment_count; i++) {
-        printf("    ===== SEGMENT ==\n");
-        Segment_t *seg = map->segments[i];
-        print_segment(seg);
-        
-        for (int j = 0; j < seg->frontiers_count; j++) {
-            printf("        === FRONTIER NODE ==\n");
-            FrontierNode_t *node = seg->frontiers[j];
-            print_frontier_node(node);
+    paint_map(map, 2);
 
-            for (int k = 0; k < node->directions_count; k++) {
-                printf("                = FRONTIER DIRECTION ==\n");
-                FrontierDirection_t *dir = node->frontiers[k];
-                print_frontier_direction(dir);
-            }
-        }
-    }
+    print_full_map(map);
 
     free_map(map);
-
     return 0;
 }

@@ -48,53 +48,81 @@ FrontierNode_t *find_node_by_position(Segment_t *segment, char i, char j) {
     return NULL;
 }
 
-void merge(Segment_t *segment_1, Segment_t *segment_2) {
-    // Create a new segment for copying
-    Segment_t *new_segment = malloc(sizeof(Segment_t));
-
-    new_segment->color = segment_1->color;
-    new_segment->frontiers_count = segment_1->frontiers_count + segment_2->frontiers_count;
-
-    new_segment->id = segment_1->id;
-    new_segment->size = segment_1->size + segment_2->size;
-
+void remove_directions_pointing_segment(Segment_t *segment, Segment_t *pointed_segment) {
     // Remove frontier_directions from both segments that point to each other
-    for (int k = 0; k < segment_1->frontiers_count; k++) {
-        FrontierNode_t *node = segment_1->frontiers[k];
+    for (int k = 0; k < segment->frontiers_count; k++) {
+        FrontierNode_t *node = segment->frontiers[k];
 
-        char removed_directions = 0;
-        for (int t = 0; t < node->directions_count; t++) {
+        // For from max to min
+        for (int t = node->directions_count - 1; t >= 0; t--) {
             FrontierDirection_t *dir = node->frontiers[t];
 
-            if (dir->pointed_node->parent_segment == segment_2) {
-                // Free this direction
-                // Reduce 1 from the directions count
+            if (dir->pointed_node->parent_segment == pointed_segment) {
+                // Removes the frontier direction
+                remove_frontier_direction(node, t);
             }
         }
 
-        // TODO: Fix the directions_count list by repositioning elements to the begininng of the list
+        node->frontiers = realloc(node->frontiers, sizeof(FrontierDirection_t) * node->directions_count);
+    }
+}
 
-        node->directions_count -= removed_directions;
+void remove_directionless_frontiers(Segment_t *segment) {
+    // For from max to min
+    for (int k = segment->frontiers_count - 1; k >= 0; k--) {
+        FrontierNode_t *node = segment->frontiers[k];
 
-        // TODO: Realloc list
+        if (node->directions_count == 0) {
+            // Removes the frontier direction
+            remove_frontier_node(segment, k);
+        }
     }
 
-    // TODO: Same code above for segment_2
+    segment->frontiers = realloc(segment->frontiers, sizeof(FrontierNode_t) * segment->frontiers_count);
+}
 
-    // TODO: Remove all frontier nodes that have directions_count = 0
-        // Make sure to free those
+void merge(Segment_t *segment_1, Segment_t *segment_2) {
+    remove_directions_pointing_segment(segment_1, segment_2);
+    remove_directions_pointing_segment(segment_2, segment_1);
 
-    // TODO: Allocate a new frontiers list in the new_segment
+    remove_directionless_frontiers(segment_1);
+    remove_directionless_frontiers(segment_2);
 
-    // TOOD: Add frontiers from the segment_2 to the segment_clone
+    // Reallocate the frontiers list in the segment_1
+    segment_1->frontiers = realloc(segment_1->frontiers, sizeof(FrontierNode_t) * segment_1->frontiers_count + segment_2->frontiers_count);
 
-    // Copy memory from the new_segment to the segment_1
+    // Add frontiers from the segment_2 to the segment_1
+    for (int k = segment_1->frontiers_count; k < segment_1->frontiers_count + segment_2->frontiers_count; k++) {
+        segment_1->frontiers[k] = segment_2->frontiers[k - segment_1->frontiers_count];
+    }
 
-    // Erase both segments. WATCH OUT on what is being erase // should not use the erase function here
+    // Update segment_1 properties
+    segment_1->frontiers_count += segment_2->frontiers_count;
+    segment_1->size += segment_2->size;
+
+    // TODO: Delete segment 2
 }
 
 void print_segment(Segment_t *segment) {
     printf("Segment %d with size %d, %d frontiers and color %d\n", segment->id, segment->size, segment->frontiers_count, segment->color);
+}
+
+void remove_frontier_node(Segment_t *segment, int position) {
+    FrontierNode_t *node = segment->frontiers[position];
+    free_frontier_node(node);
+
+    // If it's not the last, update positions
+    if (segment->frontiers_count - 1 != position) {
+        segment->frontiers[position] = segment->frontiers[segment->frontiers_count - 1];
+    } 
+
+    segment->frontiers_count -= 1;
+
+    if (segment->frontiers_count == 0) {
+        free(segment->frontiers);
+    } else {
+        segment->frontiers = realloc(segment->frontiers, sizeof(FrontierNode_t) * segment->frontiers_count);
+    }
 }
 
 void free_segment(Segment_t *segment) {

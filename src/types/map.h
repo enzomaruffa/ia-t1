@@ -38,6 +38,16 @@ void paint_map(Map_t *dest, char color);
 void print_map(Map_t *map);
 
 /*
+ * Prints a full description of Map_t;
+ */
+void print_full_map(Map_t *map);
+
+/*
+ * Removes a Segment_t from a segment at a position
+ */
+void remove_segment(Segment_t *map, int position);
+
+/*
  * Frees a Map_t
  */
 void free_map(Map_t *map);
