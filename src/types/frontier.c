@@ -62,6 +62,7 @@ void remove_frontier_direction(FrontierNode_t *node, int position) {
 
     if (node->directions_count == 0) {
         free(node->frontiers);
+        node->frontiers = NULL;
     } else {
         node->frontiers = realloc(node->frontiers, sizeof(FrontierDirection_t) * node->directions_count);
     }
@@ -72,6 +73,10 @@ void free_frontier_node(FrontierNode_t *node) {
         free_frontier_direction(node->frontiers[i]);
     }
 
-    free(node->frontiers);
+    if (node->frontiers) {
+        free(node->frontiers);
+        node->frontiers = NULL;
+    }
+
     free(node);
 }

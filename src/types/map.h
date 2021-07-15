@@ -43,9 +43,14 @@ void print_map(Map_t *map);
 void print_full_map(Map_t *map);
 
 /*
+ * Removes a Segment_t from a segment with an ID
+ */
+void remove_segment_with_id(Map_t *map, int id);
+
+/*
  * Removes a Segment_t from a segment at a position
  */
-void remove_segment(Segment_t *map, int position);
+void remove_segment(Map_t *map, int position);
 
 /*
  * Frees a Map_t

@@ -48,6 +48,7 @@ void check_neighbour(Segment_t *new_segment,
             printf("                Neighbour is from a diff segment\n");
             FrontierDirection_t *new_frontier = malloc(sizeof(FrontierDirection_t));
             new_frontier->direction = direction;
+            new_frontier->pointed_node = NULL;
 
             // Add to the parent node
             printf("                Adding to the parent node\n");
@@ -222,7 +223,7 @@ void create_map(Map_t *map, char *matrix, char width, char height) {
     // TODO: Create segments and moves
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            printf("Checking i, j (%d, %d)\n", i, j);
+            printf("\nChecking i, j (%d, %d)\n", i, j);
             if (!has_checked_position(checked_is, checked_js, check_size, i, j)) {
                 // Create a new segment
                 Segment_t *new_segment = malloc(sizeof(Segment_t));
@@ -237,7 +238,7 @@ void create_map(Map_t *map, char *matrix, char width, char height) {
 
                 new_segment->color = matrix[i * width + j];
 
-                printf("Created a new segment in: \n");
+                printf("Created a new segment at %p in: \n", new_segment);
                 print_segment(new_segment);
 
                 expand_segment(new_segment, map, matrix, 
@@ -249,6 +250,17 @@ void create_map(Map_t *map, char *matrix, char width, char height) {
                 printf("Finished expanding. Segment now: \n");
                 print_segment(new_segment);
 
+                for (int k = 0; k < new_segment->frontiers_count; k++) {
+                    print_frontier_node(new_segment->frontiers[k]);
+                    printf("Node is at %p\n", new_segment->frontiers[k]);
+                    for (int t = 0; t < new_segment->frontiers[k]->directions_count; t++) {
+                        printf("Direction pointing to %p\n", new_segment->frontiers[k]->frontiers[t]->pointed_node);
+                        if (new_segment->frontiers[k]->frontiers[t]->pointed_node != NULL) {
+                            print_frontier_direction(new_segment->frontiers[k]->frontiers[t]);
+                        }
+                    }
+                }
+
                 // Reduce the size of the segments
                 new_segment->frontiers = realloc(new_segment->frontiers, sizeof(FrontierNode_t) * new_segment->frontiers_count);
                 printf("Reallocated segment.\n");
@@ -256,6 +268,19 @@ void create_map(Map_t *map, char *matrix, char width, char height) {
                 // Add segment to segments
                 map->segments[map->segment_count] = new_segment;
                 map->segment_count += 1;
+
+                for (int k = 0; k < new_segment->frontiers_count; k++) {
+                    print_frontier_node(new_segment->frontiers[k]);
+                    printf("Node is at %p\n", new_segment->frontiers[k]);
+                    for (int t = 0; t < new_segment->frontiers[k]->directions_count; t++) {
+                        printf("Direction pointing to %p\n", new_segment->frontiers[k]->frontiers[t]->pointed_node);
+                        if (new_segment->frontiers[k]->frontiers[t]->pointed_node != NULL) {
+                            print_frontier_direction(new_segment->frontiers[k]->frontiers[t]);
+                        }
+                    }
+                }
+
+
             }
         }
     }
@@ -264,6 +289,11 @@ void create_map(Map_t *map, char *matrix, char width, char height) {
 
     // Reduce the size of the map
     map->segments = realloc(map->segments, sizeof(Segment_t) * map->segment_count);
+
+    for (int k = 0; k < map->segment_count; k++) {
+        printf("Segment is at %p\n", map->segments[k]);
+    }
+
 
     printf("Finished map. Map now: \n");
     print_map(map);
@@ -393,6 +423,7 @@ void paint_map(Map_t *dest, char color) {
 
         printf("== Attempting merge of segment %d with %d\n", initial_segment->id, seg->id);
         merge(initial_segment, seg);
+        remove_segment_with_id(dest, seg->id);
     }
 
     free(buffer);
@@ -426,11 +457,48 @@ void print_full_map(Map_t *map) {
     }
 }
 
+void remove_segment_with_id(Map_t *map, int id) {
+    for (int i = 0; i < map->segment_count; i++) {
+        if (map->segments[i]->id == id) {
+            remove_segment(map, i);
+            break;
+        }
+    }
+}
+
+void remove_segment(Map_t *map, int position) {
+    Segment_t *segment = map->segments[position];
+    printf("========= Freeing segment!\n");
+    free_segment(segment);
+
+    // If it's not the last, update positions
+    if (map->segment_count - 1 != position) {
+        printf("========= Changing pos!\n");
+        map->segments[position] = map->segments[map->segment_count - 1];
+    } 
+
+    map->segment_count -= 1;
+
+    if (map->segment_count == 0) {
+        printf("========= Freeing frontier!\n");
+        free(map->segments);
+        map->segments = NULL;
+    } else {
+        map->segments = realloc(map->segments, sizeof(Segment_t) * map->segment_count);
+    }
+}
+
 void free_map(Map_t *map) {
     for (int i = 0; i < map->segment_count; i++) {
         free_segment(map->segments[i]);
     }
-    free(map->segments);
-    free(map->moves);
+    if (map->segments) {
+        free(map->segments);
+        map->segments = NULL;
+    }
+    if (map->moves) {
+        free(map->moves);
+        map->moves = NULL;
+    }
     free(map);
 }

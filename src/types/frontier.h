@@ -50,9 +50,9 @@ typedef struct {
     char j;
 
     int directions_count;
-    FrontierDirection_t **frontiers;
-
+    
     struct Segment_t *parent_segment;
+    FrontierDirection_t **frontiers;
 } FrontierNode_t;
 
 /*
