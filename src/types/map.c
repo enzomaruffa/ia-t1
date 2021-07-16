@@ -141,7 +141,7 @@ void expand_segment(Segment_t *new_segment,
         node->directions_count = 0;
         node->i = queue_i;
         node->j = queue_j;
-        node->frontiers = malloc(sizeof(FrontierDirection_t) * 4);
+        node->frontiers = malloc(sizeof(FrontierDirection_t *) * 4);
 
         // printf("        Created a frontier node at:\n");
         // print_frontier_node(node);
@@ -193,7 +193,7 @@ void expand_segment(Segment_t *new_segment,
             free_frontier_node(node);
         } else {
             // printf("        Node has %d directions, so reallocating it\n", node->directions_count);
-            node->frontiers = realloc(node->frontiers, sizeof(FrontierDirection_t) * node->directions_count);
+            node->frontiers = realloc(node->frontiers, sizeof(FrontierDirection_t *) * node->directions_count);
 
             new_segment->frontiers[new_segment->frontiers_count] = node;
             new_segment->frontiers_count += 1;
@@ -204,7 +204,7 @@ void expand_segment(Segment_t *new_segment,
 void create_map(Map_t *map, char *matrix, char width, char height) {
     map->moves_count = 0;
     map->segment_count = 0;
-    map->segments = malloc(sizeof(Segment_t) * width * height);
+    map->segments = malloc(sizeof(Segment_t *) * width * height);
 
     int next_segment_id = 0;
 
@@ -234,7 +234,7 @@ void create_map(Map_t *map, char *matrix, char width, char height) {
 
                 new_segment->size = 0;
                 new_segment->frontiers_count = 0;
-                new_segment->frontiers = malloc(sizeof(FrontierNode_t) * width * height);
+                new_segment->frontiers = malloc(sizeof(FrontierNode_t *) * width * height);
 
                 new_segment->color = matrix[i * width + j];
 
@@ -251,7 +251,7 @@ void create_map(Map_t *map, char *matrix, char width, char height) {
                 // print_segment(new_segment);
 
                 // Reduce the size of the segments
-                new_segment->frontiers = realloc(new_segment->frontiers, sizeof(FrontierNode_t) * new_segment->frontiers_count);
+                new_segment->frontiers = realloc(new_segment->frontiers, sizeof(FrontierNode_t *) * new_segment->frontiers_count);
                 // printf("Reallocated segment.\n");
 
                 // Add segment to segments
@@ -264,7 +264,7 @@ void create_map(Map_t *map, char *matrix, char width, char height) {
     map->initial_segment = map->segments[0];
 
     // Reduce the size of the map
-    map->segments = realloc(map->segments, sizeof(Segment_t) * map->segment_count);
+    map->segments = realloc(map->segments, sizeof(Segment_t *) * map->segment_count);
 
     // printf("Finished map. Map now: \n");
     // print_map(map);
@@ -295,7 +295,7 @@ void clone_map(Map_t *dest, Map_t *original) {
     dest->segment_count = original->segment_count;
 
     // Clone segments
-    dest->segments = malloc(sizeof(Segment_t) * original->segment_count); 
+    dest->segments = malloc(sizeof(Segment_t *) * original->segment_count); 
 
     for (int i = 0; i < original->segment_count; i++) {
         Segment_t *clone = malloc(sizeof(Segment_t));
@@ -475,7 +475,7 @@ void remove_segment(Map_t *map, int position) {
         free(map->segments);
         map->segments = NULL;
     } else {
-        map->segments = realloc(map->segments, sizeof(Segment_t) * map->segment_count);
+        map->segments = realloc(map->segments, sizeof(Segment_t *) * map->segment_count);
     }
 }
 

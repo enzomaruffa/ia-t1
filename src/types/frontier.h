@@ -5,6 +5,7 @@ struct Segment_t {
     int id;
     int size;
     char color;
+    
     int frontiers_count;
 };
 

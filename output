@@ -1,0 +1,535 @@
+Finished setup of the map. Current state: 
+Map with 0 moves and 0 segments
+
+Checking i, j (0, 0)
+Created a new segment at 0x139e06850 in: 
+Segment 0 with size 0, 0 frontiers and color 1
+    Added 0, 0 to the queue
+    Checking 0, 0 from the queue
+        Created a frontier node at:
+Node in (0, 0), with 0 directions that belongs to segment with ID 0 and color 1
+        Analyzing neighbours...
+            Checking neighbour in 0, -1 against 3, 3
+            Checking neighbour in -1, 0 against 3, 3
+            Checking neighbour in 1, 0 against 3, 3
+                Neighbour has color 2
+                Neighbour is from a diff segment
+                Adding to the parent node
+                Searching for the pointed_node
+            Checking neighbour in 0, 1 against 3, 3
+                Neighbour has color 3
+                Neighbour is from a diff segment
+                Adding to the parent node
+                Searching for the pointed_node
+        After analysis: 
+Node in (0, 0), with 2 directions that belongs to segment with ID 0 and color 1
+        Node has 2 directions, so reallocating it
+Finished expanding. Segment now: 
+Segment 0 with size 1, 1 frontiers and color 1
+Reallocated segment.
+
+Checking i, j (0, 1)
+Created a new segment at 0x139e06880 in: 
+Segment 1 with size 0, 0 frontiers and color 3
+    Added 0, 1 to the queue
+    Checking 0, 1 from the queue
+        Created a frontier node at:
+Node in (0, 1), with 0 directions that belongs to segment with ID 1 and color 3
+        Analyzing neighbours...
+            Checking neighbour in 0, 0 against 3, 3
+                Neighbour has color 1
+                Neighbour is from a diff segment
+                Adding to the parent node
+                Searching for the pointed_node
+                Found the pointed nod1e
+                Pointed node:
+Node in (0, 0), with 2 directions that belongs to segment with ID 0 and color 1
+                Looking for the frontier with direction 2, which is opposite to our 0 in the other node!
+                For k 0, other_direction is 1
+                For k 1, other_direction is 2
+                Found frontier in the other. Backlink created!
+            Checking neighbour in -1, 1 against 3, 3
+            Checking neighbour in 1, 1 against 3, 3
+                Neighbour has color 3
+                Neighbour belongs to the same color! Pushing to the queue...
+            Checking neighbour in 0, 2 against 3, 3
+                Neighbour has color 1
+                Neighbour is from a diff segment
+                Adding to the parent node
+                Searching for the pointed_node
+        After analysis: 
+Node in (0, 1), with 2 directions that belongs to segment with ID 1 and color 3
+        Node has 2 directions, so reallocating it
+    Checking 1, 1 from the queue
+        Created a frontier node at:
+Node in (1, 1), with 0 directions that belongs to segment with ID 1 and color 3
+        Analyzing neighbours...
+            Checking neighbour in 1, 0 against 3, 3
+                Neighbour has color 2
+                Neighbour is from a diff segment
+                Adding to the parent node
+                Searching for the pointed_node
+            Checking neighbour in 0, 1 against 3, 3
+                Neighbour has color 3
+                Neighbour belongs to the same color! Pushing to the queue...
+            Checking neighbour in 2, 1 against 3, 3
+                Neighbour has color 3
+                Neighbour belongs to the same color! Pushing to the queue...
+            Checking neighbour in 1, 2 against 3, 3
+                Neighbour has color 3
+                Neighbour belongs to the same color! Pushing to the queue...
+        After analysis: 
+Node in (1, 1), with 1 directions that belongs to segment with ID 1 and color 3
+        Node has 1 directions, so reallocating it
+    Checking 0, 1 from the queue
+        Had previously checked... Returning
+    Checking 2, 1 from the queue
+        Created a frontier node at:
+Node in (2, 1), with 0 directions that belongs to segment with ID 1 and color 3
+        Analyzing neighbours...
+            Checking neighbour in 2, 0 against 3, 3
+                Neighbour has color 3
+                Neighbour belongs to the same color! Pushing to the queue...
+            Checking neighbour in 1, 1 against 3, 3
+                Neighbour has color 3
+                Neighbour belongs to the same color! Pushing to the queue...
+            Checking neighbour in 3, 1 against 3, 3
+            Checking neighbour in 2, 2 against 3, 3
+                Neighbour has color 2
+                Neighbour is from a diff segment
+                Adding to the parent node
+                Searching for the pointed_node
+        After analysis: 
+Node in (2, 1), with 1 directions that belongs to segment with ID 1 and color 3
+        Node has 1 directions, so reallocating it
+    Checking 1, 2 from the queue
+        Created a frontier node at:
+Node in (1, 2), with 0 directions that belongs to segment with ID 1 and color 3
+        Analyzing neighbours...
+            Checking neighbour in 1, 1 against 3, 3
+                Neighbour has color 3
+                Neighbour belongs to the same color! Pushing to the queue...
+            Checking neighbour in 0, 2 against 3, 3
+                Neighbour has color 1
+                Neighbour is from a diff segment
+                Adding to the parent node
+                Searching for the pointed_node
+            Checking neighbour in 2, 2 against 3, 3
+                Neighbour has color 2
+                Neighbour is from a diff segment
+                Adding to the parent node
+                Searching for the pointed_node
+            Checking neighbour in 1, 3 against 3, 3
+        After analysis: 
+Node in (1, 2), with 2 directions that belongs to segment with ID 1 and color 3
+        Node has 2 directions, so reallocating it
+    Checking 2, 0 from the queue
+        Created a frontier node at:
+Node in (2, 0), with 0 directions that belongs to segment with ID 1 and color 3
+        Analyzing neighbours...
+            Checking neighbour in 2, -1 against 3, 3
+            Checking neighbour in 1, 0 against 3, 3
+                Neighbour has color 2
+                Neighbour is from a diff segment
+                Adding to the parent node
+                Searching for the pointed_node
+            Checking neighbour in 3, 0 against 3, 3
+            Checking neighbour in 2, 1 against 3, 3
+                Neighbour has color 3
+                Neighbour belongs to the same color! Pushing to the queue...
+        After analysis: 
+Node in (2, 0), with 1 directions that belongs to segment with ID 1 and color 3
+        Node has 1 directions, so reallocating it
+    Checking 1, 1 from the queue
+        Had previously checked... Returning
+    Checking 1, 1 from the queue
+        Had previously checked... Returning
+    Checking 2, 1 from the queue
+        Had previously checked... Returning
+Finished expanding. Segment now: 
+Segment 1 with size 5, 5 frontiers and color 3
+Reallocated segment.
+
+Checking i, j (0, 2)
+Created a new segment at 0x139e06b90 in: 
+Segment 2 with size 0, 0 frontiers and color 1
+    Added 0, 2 to the queue
+    Checking 0, 2 from the queue
+        Created a frontier node at:
+Node in (0, 2), with 0 directions that belongs to segment with ID 2 and color 1
+        Analyzing neighbours...
+            Checking neighbour in 0, 1 against 3, 3
+                Neighbour has color 3
+                Neighbour is from a diff segment
+                Adding to the parent node
+                Searching for the pointed_node
+                Found the pointed nod1e
+                Pointed node:
+Node in (0, 1), with 2 directions that belongs to segment with ID 1 and color 3
+                Looking for the frontier with direction 2, which is opposite to our 0 in the other node!
+                For k 0, other_direction is 0
+                For k 1, other_direction is 2
+                Found frontier in the other. Backlink created!
+            Checking neighbour in -1, 2 against 3, 3
+            Checking neighbour in 1, 2 against 3, 3
+                Neighbour has color 3
+                Neighbour is from a diff segment
+                Adding to the parent node
+                Searching for the pointed_node
+                Found the pointed nod1e
+                Pointed node:
+Node in (1, 2), with 2 directions that belongs to segment with ID 1 and color 3
+                Looking for the frontier with direction 3, which is opposite to our 1 in the other node!
+                For k 0, other_direction is 3
+                Found frontier in the other. Backlink created!
+            Checking neighbour in 0, 3 against 3, 3
+        After analysis: 
+Node in (0, 2), with 2 directions that belongs to segment with ID 2 and color 1
+        Node has 2 directions, so reallocating it
+Finished expanding. Segment now: 
+Segment 2 with size 1, 1 frontiers and color 1
+Reallocated segment.
+
+Checking i, j (1, 0)
+Created a new segment at 0x139e06bc0 in: 
+Segment 3 with size 0, 0 frontiers and color 2
+    Added 1, 0 to the queue
+    Checking 1, 0 from the queue
+        Created a frontier node at:
+Node in (1, 0), with 0 directions that belongs to segment with ID 3 and color 2
+        Analyzing neighbours...
+            Checking neighbour in 1, -1 against 3, 3
+            Checking neighbour in 0, 0 against 3, 3
+                Neighbour has color 1
+                Neighbour is from a diff segment
+                Adding to the parent node
+                Searching for the pointed_node
+                Found the pointed nod1e
+                Pointed node:
+Node in (0, 0), with 2 directions that belongs to segment with ID 0 and color 1
+                Looking for the frontier with direction 1, which is opposite to our 3 in the other node!
+                For k 0, other_direction is 1
+                Found frontier in the other. Backlink created!
+            Checking neighbour in 2, 0 against 3, 3
+                Neighbour has color 3
+                Neighbour is from a diff segment
+                Adding to the parent node
+                Searching for the pointed_node
+                Found the pointed nod1e
+                Pointed node:
+Node in (2, 0), with 1 directions that belongs to segment with ID 1 and color 3
+                Looking for the frontier with direction 3, which is opposite to our 1 in the other node!
+                For k 0, other_direction is 3
+                Found frontier in the other. Backlink created!
+            Checking neighbour in 1, 1 against 3, 3
+                Neighbour has color 3
+                Neighbour is from a diff segment
+                Adding to the parent node
+                Searching for the pointed_node
+                Found the pointed nod1e
+                Pointed node:
+Node in (1, 1), with 1 directions that belongs to segment with ID 1 and color 3
+                Looking for the frontier with direction 0, which is opposite to our 2 in the other node!
+                For k 0, other_direction is 0
+                Found frontier in the other. Backlink created!
+        After analysis: 
+Node in (1, 0), with 3 directions that belongs to segment with ID 3 and color 2
+        Node has 3 directions, so reallocating it
+Finished expanding. Segment now: 
+Segment 3 with size 1, 1 frontiers and color 2
+Reallocated segment.
+
+Checking i, j (1, 1)
+
+Checking i, j (1, 2)
+
+Checking i, j (2, 0)
+
+Checking i, j (2, 1)
+
+Checking i, j (2, 2)
+Created a new segment at 0x139e06c90 in: 
+Segment 4 with size 0, 0 frontiers and color 2
+    Added 2, 2 to the queue
+    Checking 2, 2 from the queue
+        Created a frontier node at:
+Node in (2, 2), with 0 directions that belongs to segment with ID 4 and color 2
+        Analyzing neighbours...
+            Checking neighbour in 2, 1 against 3, 3
+                Neighbour has color 3
+                Neighbour is from a diff segment
+                Adding to the parent node
+                Searching for the pointed_node
+                Found the pointed nod1e
+                Pointed node:
+Node in (2, 1), with 1 directions that belongs to segment with ID 1 and color 3
+                Looking for the frontier with direction 2, which is opposite to our 0 in the other node!
+                For k 0, other_direction is 2
+                Found frontier in the other. Backlink created!
+            Checking neighbour in 1, 2 against 3, 3
+                Neighbour has color 3
+                Neighbour is from a diff segment
+                Adding to the parent node
+                Searching for the pointed_node
+                Found the pointed nod1e
+                Pointed node:
+Node in (1, 2), with 2 directions that belongs to segment with ID 1 and color 3
+                Looking for the frontier with direction 1, which is opposite to our 3 in the other node!
+                For k 0, other_direction is 3
+                For k 1, other_direction is 1
+                Found frontier in the other. Backlink created!
+            Checking neighbour in 3, 2 against 3, 3
+            Checking neighbour in 2, 3 against 3, 3
+        After analysis: 
+Node in (2, 2), with 2 directions that belongs to segment with ID 4 and color 2
+        Node has 2 directions, so reallocating it
+Finished expanding. Segment now: 
+Segment 4 with size 1, 1 frontiers and color 2
+Reallocated segment.
+Finished map. Map now: 
+Map with 0 moves and 5 segments
+=================
+======== MAP ==
+Map with 0 moves and 5 segments
+    ===== SEGMENT ==
+Segment 0 with size 1, 1 frontiers and color 1
+        === FRONTIER NODE ==
+Node in (0, 0), with 2 directions that belongs to segment with ID 0 and color 1
+                = FRONTIER DIRECTION ==
+Direction 1 pointing to node in (1, 0) which belongs to segment 3 and has color 2
+                = FRONTIER DIRECTION ==
+Direction 2 pointing to node in (0, 1) which belongs to segment 1 and has color 3
+    ===== SEGMENT ==
+Segment 1 with size 5, 5 frontiers and color 3
+        === FRONTIER NODE ==
+Node in (0, 1), with 2 directions that belongs to segment with ID 1 and color 3
+                = FRONTIER DIRECTION ==
+Direction 0 pointing to node in (0, 0) which belongs to segment 0 and has color 1
+                = FRONTIER DIRECTION ==
+Direction 2 pointing to node in (0, 2) which belongs to segment 2 and has color 1
+        === FRONTIER NODE ==
+Node in (1, 1), with 1 directions that belongs to segment with ID 1 and color 3
+                = FRONTIER DIRECTION ==
+Direction 0 pointing to node in (1, 0) which belongs to segment 3 and has color 2
+        === FRONTIER NODE ==
+Node in (2, 1), with 1 directions that belongs to segment with ID 1 and color 3
+                = FRONTIER DIRECTION ==
+Direction 2 pointing to node in (2, 2) which belongs to segment 4 and has color 2
+        === FRONTIER NODE ==
+Node in (1, 2), with 2 directions that belongs to segment with ID 1 and color 3
+                = FRONTIER DIRECTION ==
+Direction 3 pointing to node in (0, 2) which belongs to segment 2 and has color 1
+                = FRONTIER DIRECTION ==
+Direction 1 pointing to node in (2, 2) which belongs to segment 4 and has color 2
+        === FRONTIER NODE ==
+Node in (2, 0), with 1 directions that belongs to segment with ID 1 and color 3
+                = FRONTIER DIRECTION ==
+Direction 3 pointing to node in (1, 0) which belongs to segment 3 and has color 2
+    ===== SEGMENT ==
+Segment 2 with size 1, 1 frontiers and color 1
+        === FRONTIER NODE ==
+Node in (0, 2), with 2 directions that belongs to segment with ID 2 and color 1
+                = FRONTIER DIRECTION ==
+Direction 0 pointing to node in (0, 1) which belongs to segment 1 and has color 3
+                = FRONTIER DIRECTION ==
+Direction 1 pointing to node in (1, 2) which belongs to segment 1 and has color 3
+    ===== SEGMENT ==
+Segment 3 with size 1, 1 frontiers and color 2
+        === FRONTIER NODE ==
+Node in (1, 0), with 3 directions that belongs to segment with ID 3 and color 2
+                = FRONTIER DIRECTION ==
+Direction 3 pointing to node in (0, 0) which belongs to segment 0 and has color 1
+                = FRONTIER DIRECTION ==
+Direction 1 pointing to node in (2, 0) which belongs to segment 1 and has color 3
+                = FRONTIER DIRECTION ==
+Direction 2 pointing to node in (1, 1) which belongs to segment 1 and has color 3
+    ===== SEGMENT ==
+Segment 4 with size 1, 1 frontiers and color 2
+        === FRONTIER NODE ==
+Node in (2, 2), with 2 directions that belongs to segment with ID 4 and color 2
+                = FRONTIER DIRECTION ==
+Direction 0 pointing to node in (2, 1) which belongs to segment 1 and has color 3
+                = FRONTIER DIRECTION ==
+Direction 3 pointing to node in (1, 2) which belongs to segment 1 and has color 3
+
+
+Solving by the first segment. Map has 5 segments
+Segment pointers: 
+Segment 0 in 0x139e06850Segment 1 in 0x139e06880Segment 2 in 0x139e06b90Segment 3 in 0x139e06bc0Segment 4 in 0x139e06c90Found segment: 
+Segment 3 with size 1, 1 frontiers and color 2
+== Attempting paint of map with 2. Initial segment has 1 frontiers
+====== Checking node in 0
+======== Checking direction in 0
+============= Checking match! Segment 3 has color 2
+============= Matched! Adding it...
+======== Checking direction in 1
+============= Checking match! Segment 1 has color 3
+== Found 1 matching segments
+== Attempting merge of segment 0 with 3
+== Removing directions pointing to each other
+= Removing from segment 0 pointing to 3
+== Checking node at 0 in (0, 0), pointer 0x139e068c0:
+==== Checking direction at 1:
+Direction 2 pointing to node in (0, 1) which belongs to segment 1 and has color 3
+==== Checking direction at 0:
+Direction 1 pointing to node in (1, 0) which belongs to segment 3 and has color 2
+====== Removing it!
+= Removing from segment 3 pointing to 0
+== Checking node at 0 in (1, 0), pointer 0x139e06be0:
+==== Checking direction at 2:
+Direction 2 pointing to node in (1, 1) which belongs to segment 1 and has color 3
+==== Checking direction at 1:
+Direction 1 pointing to node in (2, 0) which belongs to segment 1 and has color 3
+==== Checking direction at 0:
+Direction 3 pointing to node in (0, 0) which belongs to segment 0 and has color 1
+====== Removing it!
+== Checking node at 0 in (1, 0), pointer 0x139e06be0:
+== Removing nodes
+== Removing from s1
+==== Checking node at 0 in (0, 0) with pointer 0x139e068c0:
+== Removing from s2
+==== Checking node at 0 in (1, 0) with pointer 0x139e06be0:
+== Checking node at 0 in (1, 0), pointer 0x139e06be0:
+== Reallocating frontiers:
+===== Segment 1 has 1 frontiers:
+===== Segment 2 has 1 frontiers:
+===== K going from 1 to 2:
+===== K is 1
+===== Adding segment 2 frontier index 0 to segment 1 frontier index 1
+=== Segment 1 now has 2 frontiers
+== Node at 0 in (0, 0), pointer 0x139e068c0:
+== Node at 1 in (1, 0), pointer 0x139e06be0:
+========= Freeing segment!
+========= Changing pos!
+
+
+Solving by the first segment. Map has 4 segments
+Segment pointers: 
+Segment 0 in 0x139e06850Segment 1 in 0x139e06880Segment 2 in 0x139e06b90Segment 4 in 0x139e06c90Found segment: 
+Segment 1 with size 5, 5 frontiers and color 3
+== Attempting paint of map with 3. Initial segment has 2 frontiers
+====== Checking node in 0
+======== Checking direction in 0
+============= Checking match! Segment 1 has color 3
+============= Matched! Adding it...
+====== Checking node in 1
+======== Checking direction in 0
+============= Checking match! Segment 1 has color 3
+============= Matched! Adding it...
+======== Checking direction in 1
+============= Checking match! Segment 1 has color 3
+============= Matched! Adding it...
+== Found 3 matching segments
+== Attempting merge of segment 0 with 1
+== Removing directions pointing to each other
+= Removing from segment 0 pointing to 1
+== Checking node at 0 in (0, 0), pointer 0x139e068c0:
+==== Checking direction at 0:
+Direction 2 pointing to node in (0, 1) which belongs to segment 1 and has color 3
+====== Removing it!
+== Checking node at 1 in (1, 0), pointer 0x139e06be0:
+==== Checking direction at 1:
+Direction 1 pointing to node in (2, 0) which belongs to segment 1 and has color 3
+====== Removing it!
+==== Checking direction at 0:
+Direction 2 pointing to node in (1, 1) which belongs to segment 1 and has color 3
+====== Removing it!
+= Removing from segment 1 pointing to 0
+== Checking node at 0 in (0, 1), pointer 0x139e068a0:
+==== Checking direction at 1:
+Direction 2 pointing to node in (0, 2) which belongs to segment 2 and has color 1
+==== Checking direction at 0:
+Direction 0 pointing to node in (0, 0) which belongs to segment 0 and has color 1
+====== Removing it!
+== Checking node at 1 in (1, 1), pointer 0x139e069f0:
+==== Checking direction at 0:
+Direction 0 pointing to node in (1, 0) which belongs to segment 0 and has color 0
+== Checking node at 2 in (2, 1), pointer 0x139e06a50:
+==== Checking direction at 0:
+Direction 2 pointing to node in (2, 2) which belongs to segment 4 and has color 2
+== Checking node at 3 in (1, 2), pointer 0x139e06ab0:
+==== Checking direction at 1:
+Direction 1 pointing to node in (2, 2) which belongs to segment 4 and has color 2
+==== Checking direction at 0:
+Direction 3 pointing to node in (0, 2) which belongs to segment 2 and has color 1
+== Checking node at 4 in (2, 0), pointer 0x139e06b30:
+==== Checking direction at 0:
+Direction 3 pointing to node in (1, 0) which belongs to segment 0 and has color 0
+== Checking node at 0 in (0, 1), pointer 0x139e068a0:
+== Checking node at 1 in (1, 1), pointer 0x139e069f0:
+== Checking node at 2 in (2, 1), pointer 0x139e06a50:
+== Checking node at 3 in (1, 2), pointer 0x139e06ab0:
+== Checking node at 4 in (2, 0), pointer 0x139e06b30:
+== Removing nodes
+== Removing from s1
+==== Checking node at 1 in (1, 0) with pointer 0x139e06be0:
+====== Removing it!
+==== Checking node at 0 in (0, 0) with pointer 0x139e068c0:
+====== Removing it!
+== Removing from s2
+==== Checking node at 4 in (2, 0) with pointer 0x139e06b30:
+==== Checking node at 3 in (1, 2) with pointer 0x139e06ab0:
+==== Checking node at 2 in (2, 1) with pointer 0x139e06a50:
+==== Checking node at 1 in (1, 1) with pointer 0x139e069f0:
+==== Checking node at 0 in (0, 1) with pointer 0x139e068a0:
+== Checking node at 0 in (0, 1), pointer 0x139e068a0:
+== Checking node at 1 in (1, 1), pointer 0x139e069f0:
+== Checking node at 2 in (2, 1), pointer 0x139e06a50:
+== Checking node at 3 in (1, 2), pointer 0x139e06ab0:
+== Checking node at 4 in (2, 0), pointer 0x139e06b30:
+== Reallocating frontiers:
+===== Segment 1 has 0 frontiers:
+===== Segment 2 has 5 frontiers:
+===== K going from 0 to 5:
+===== K is 0
+===== Adding segment 2 frontier index 0 to segment 1 frontier index 0
+===== K is 1
+===== Adding segment 2 frontier index 1 to segment 1 frontier index 1
+===== K is 2
+===== Adding segment 2 frontier index 2 to segment 1 frontier index 2
+===== K is 3
+===== Adding segment 2 frontier index 3 to segment 1 frontier index 3
+===== K is 4
+===== Adding segment 2 frontier index 4 to segment 1 frontier index 4
+=== Segment 1 now has 5 frontiers
+== Node at 0 in (0, 1), pointer 0x139e068a0:
+== Node at 1 in (1, 1), pointer 0x139e069f0:
+== Node at 2 in (2, 1), pointer 0x139e06a50:
+== Node at 3 in (1, 2), pointer 0x139e06ab0:
+== Node at 4 in (2, 0), pointer 0x139e06b30:
+========= Freeing segment!
+========= Changing pos!
+
+
+Solving by the first segment. Map has 3 segments
+Segment pointers: 
+Segment 0 in 0x139e06850Segment 4 in 0x139e06c90Segment 2 in 0x139e06b90Found segment: 
+Segment 2 with size 1, 1 frontiers and color 1
+== Attempting paint of map with 1. Initial segment has 5 frontiers
+====== Checking node in 0
+======== Checking direction in 0
+============= Checking match! Segment 2 has color 1
+============= Matched! Adding it...
+====== Checking node in 1
+======== Checking direction in 0
+============= Checking match! Segment 0 has color -42
+====== Checking node in 2
+======== Checking direction in 0
+============= Checking match! Segment 4 has color 2
+====== Checking node in 3
+======== Checking direction in 0
+============= Checking match! Segment 2 has color 1
+============= Matched! Adding it...
+======== Checking direction in 1
+============= Checking match! Segment 4 has color 2
+====== Checking node in 4
+======== Checking direction in 0
+============= Checking match! Segment 0 has color -42
+== Found 2 matching segments
+== Attempting merge of segment 0 with 2
+== Removing directions pointing to each other
+= Removing from segment 0 pointing to 2
+== Checking node at 0 in (0, 1), pointer 0x139e068a0:
+==== Checking direction at 0:
+Direction 2 pointing to node in (0, 2) which belongs to segment 2 and has color 1
+==

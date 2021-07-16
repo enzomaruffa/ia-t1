@@ -32,7 +32,7 @@ void clone_frontier_node(FrontierNode_t *dest, FrontierNode_t *original) {
     dest->j = original->j;
     dest->directions_count = original->directions_count;
     
-    dest->frontiers = malloc(sizeof(FrontierDirection_t) * original->directions_count);
+    dest->frontiers = malloc(sizeof(FrontierDirection_t *) * original->directions_count);
     
     for (int i = 0; i < original->directions_count; i++) {
         FrontierDirection_t *clone = malloc(sizeof(FrontierDirection_t));
@@ -64,7 +64,7 @@ void remove_frontier_direction(FrontierNode_t *node, int position) {
         free(node->frontiers);
         node->frontiers = NULL;
     } else {
-        node->frontiers = realloc(node->frontiers, sizeof(FrontierDirection_t) * node->directions_count);
+        node->frontiers = realloc(node->frontiers, sizeof(FrontierDirection_t *) * node->directions_count);
     }
 }
 
