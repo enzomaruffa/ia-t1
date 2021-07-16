@@ -43,6 +43,11 @@ void print_map(Map_t *map);
 void print_full_map(Map_t *map);
 
 /*
+ * Prints the solution for a given map (move count + moves)
+ */
+void print_solution(Map_t *map);
+
+/*
  * Removes a Segment_t from a segment with an ID
  */
 void remove_segment_with_id(Map_t *map, int id);

@@ -57,10 +57,10 @@ void remove_directions_pointing_segment(Segment_t *segment, Segment_t *pointed_s
         for (int t = node->directions_count - 1; t >= 0; t--) {
             FrontierDirection_t *dir = node->frontiers[t];
 
-            printf("==== Checking direction at %d:\n", t);
-            print_frontier_direction(dir);
+            // printf("==== Checking direction at %d:\n", t);
+            // print_frontier_direction(dir);
             if (dir->pointed_node->parent_segment == pointed_segment) {
-                printf("====== Removing it!\n");
+                // printf("====== Removing it!\n");
                 // Removes the frontier direction
                 remove_frontier_direction(node, t); 
             }
@@ -73,26 +73,26 @@ void remove_directionless_frontiers(Segment_t *segment) {
     for (int k = segment->frontiers_count - 1; k >= 0; k--) {
         FrontierNode_t *node = segment->frontiers[k];
 
-        printf("==== Checking node at %d:\n", k);
+        // printf("==== Checking node at %d:\n", k);
         if (node->directions_count == 0) {
             // Removes the frontier direction
-            printf("====== Removing it!\n");
+            // printf("====== Removing it!\n");
             remove_frontier_node(segment, k);
         }
     }
 }
 
 void merge(Segment_t *segment_1, Segment_t *segment_2) {
-    printf("== Removing directions pointing to each other\n");
+    // printf("== Removing directions pointing to each other\n");
     remove_directions_pointing_segment(segment_1, segment_2);
     remove_directions_pointing_segment(segment_2, segment_1);
 
-    printf("== Removing nodes\n");
+    // printf("== Removing nodes\n");
     remove_directionless_frontiers(segment_1);
     remove_directionless_frontiers(segment_2);
 
     // Reallocate the frontiers list in the segment_1
-    printf("== Reallocation frontiers\n");
+    // printf("== Reallocation frontiers\n");
     segment_1->frontiers = realloc(segment_1->frontiers, sizeof(FrontierNode_t) * segment_1->frontiers_count + segment_2->frontiers_count);
 
     // Add frontiers from the segment_2 to the segment_1
@@ -115,19 +115,19 @@ void print_segment(Segment_t *segment) {
 
 void remove_frontier_node(Segment_t *segment, int position) {
     FrontierNode_t *node = segment->frontiers[position];
-    printf("========= Freeing node!\n");
+    // printf("========= Freeing node!\n");
     free_frontier_node(node);
 
     // If it's not the last, update positions
     if (segment->frontiers_count - 1 != position) {
-        printf("========= Changing pos!\n");
+        // printf("========= Changing pos!\n");
         segment->frontiers[position] = segment->frontiers[segment->frontiers_count - 1];
     } 
 
     segment->frontiers_count -= 1;
 
     if (segment->frontiers_count == 0) {
-        printf("========= Freeing frontier!\n");
+        // printf("========= Freeing frontier!\n");
         free(segment->frontiers);
         segment->frontiers = NULL;
     } else {
