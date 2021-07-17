@@ -17,7 +17,7 @@ void clone_segment(Segment_t *dest, Segment_t *original) {
         FrontierNode_t *clone = malloc(sizeof(FrontierNode_t));
 
         clone_frontier_node(clone, original->frontiers[i]);
-        clone->parent_segment = dest;
+        clone->parent_segment = (struct Segment_t *)dest;
 
         dest->frontiers[i] = clone;
     }
@@ -61,7 +61,7 @@ void remove_directions_pointing_segment(Segment_t *segment, Segment_t *pointed_s
 
             // printf("==== Checking direction at %d:\n", t);
             // print_frontier_direction(dir);
-            if (dir->pointed_node->parent_segment == pointed_segment) {
+            if (dir->pointed_node->parent_segment == (struct Segment_t *)pointed_segment) {
                 // printf("====== Removing it!\n");
                 // Removes the frontier direction
                 remove_frontier_direction(node, t); 
@@ -117,7 +117,7 @@ void merge(Segment_t *segment_1, Segment_t *segment_2) {
         // printf("===== K is %d\n", k);
         // printf("===== Adding segment 2 frontier index %d to segment 1 frontier index %d\n", k - segment_1->frontiers_count, k);
         segment_1->frontiers[k] = segment_2->frontiers[k - segment_1->frontiers_count];
-        segment_1->frontiers[k]->parent_segment = segment_1;
+        segment_1->frontiers[k]->parent_segment = (struct Segment_t *)segment_1;
     }
 
     // Update segment_1 properties

@@ -24,7 +24,7 @@ void free_frontier_direction(FrontierDirection_t *direction) {
 // ===========================
 
 FrontierNode_t *get_pointed_frontier_node(FrontierDirection_t *direction) {
-    return direction->pointed_node;
+    return (FrontierNode_t *)direction->pointed_node;
 }
 
 void clone_frontier_node(FrontierNode_t *dest, FrontierNode_t *original) {
@@ -37,7 +37,7 @@ void clone_frontier_node(FrontierNode_t *dest, FrontierNode_t *original) {
     for (int i = 0; i < original->directions_count; i++) {
         FrontierDirection_t *clone = malloc(sizeof(FrontierDirection_t));
         clone_frontier_direction(clone, original->frontiers[i]);
-        clone->parent_node = dest;
+        clone->parent_node = (struct FrontierNode_t *)dest;
         // TODO: Strozzi
         dest->frontiers[i] = clone;
     }

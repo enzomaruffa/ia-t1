@@ -71,7 +71,7 @@ void check_neighbour(Segment_t *new_segment,
             if (pointed_node) {
                 // printf("                Pointed node:\n");
                 // print_frontier_node(pointed_node);
-                new_frontier->pointed_node = pointed_node;
+                new_frontier->pointed_node = (struct FrontierNode_t *)pointed_node;
 
                 Direction opposite = opposite_direction(direction);
 
@@ -83,7 +83,7 @@ void check_neighbour(Segment_t *new_segment,
 
                     if (other_direction->direction == opposite) {
                         // printf("                Found frontier in the other. Backlink created!\n");
-                        other_direction->pointed_node = parent_node;
+                        other_direction->pointed_node = (struct FrontierNode_t *)parent_node;
                         break;
                     }
                 }
@@ -137,7 +137,7 @@ void expand_segment(Segment_t *new_segment,
 
         // Create a node for this position
         FrontierNode_t *node = malloc(sizeof(FrontierNode_t));
-        node->parent_segment = new_segment;
+        node->parent_segment = (struct Segment_t *)new_segment;
         node->directions_count = 0;
         node->i = queue_i;
         node->j = queue_j;
@@ -329,7 +329,7 @@ void clone_map(Map_t *dest, Map_t *original) {
                 FrontierNode_t *clone_pointed_node = find_node_by_position(clone_segment, original_pointed_x, original_pointed_y);
 
                 // Attribute to clone
-                clone_direction->pointed_node = clone_pointed_node;
+                clone_direction->pointed_node = (struct FrontierNode_t *)clone_pointed_node;
             }
         }
     }
@@ -364,7 +364,7 @@ void paint_map(Map_t *dest, char color) {
             // printf("============= Checking match! Segment %d has color %d\n", dir->pointed_node->parent_segment->id, dir->pointed_node->parent_segment->color);
             if (dir->pointed_node->parent_segment->color == color) {
                 // printf("============= Matched! Adding it...\n");
-                buffer[added_segments] = dir->pointed_node->parent_segment;
+                buffer[added_segments] = (Segment_t *)(dir->pointed_node->parent_segment);
                 added_segments += 1;
             }
         }
