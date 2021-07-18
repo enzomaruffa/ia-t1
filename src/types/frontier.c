@@ -14,10 +14,20 @@ void clone_frontier_direction(FrontierDirection_t *dest, FrontierDirection_t *or
 }
 
 void print_frontier_direction(FrontierDirection_t *direction) {
-    printf("Direction %d pointing to node in (%d, %d) which belongs to segment %d and has color %d\n", direction->direction, direction->pointed_node->i, direction->pointed_node->j, direction->pointed_node->parent_segment->id, direction->pointed_node->parent_segment->color); 
+    if (direction->pointed_node) {
+        if (direction->pointed_node->parent_segment) {
+            printf("[print_frontier_direction] Direction [%p] %d / pointed node [%p] in (%d, %d) / pointed node segment [%p] id %d\n", direction, direction->direction, direction->pointed_node, direction->pointed_node->i, direction->pointed_node->j, direction->pointed_node->parent_segment, direction->pointed_node->parent_segment->id); 
+        } else {
+            printf("[print_frontier_direction] Direction [%p] %d / pointed node [%p] in (%d, %d)\n", direction, direction->direction, direction->pointed_node, direction->pointed_node->i, direction->pointed_node->j); 
+        }
+    } else {
+        printf("[print_frontier_direction] Direction [%p] %d / pointed node [%p]\n", direction, direction->direction, direction->pointed_node); 
+    }
 }
 
 void free_frontier_direction(FrontierDirection_t *direction) {
+    printf("[free_frontier_direction] Freeing direction at %p: \n", direction);
+    print_frontier_direction(direction);
     free(direction);
 }
 
@@ -45,11 +55,14 @@ void clone_frontier_node(FrontierNode_t *dest, FrontierNode_t *original) {
 
 void print_frontier_node(FrontierNode_t *node) {
     // print_segment(node->parent_segment);
-    printf("Node in (%d, %d), with %d directions that belongs to segment with ID %d and color %d\n", node->i, node->j, node->directions_count, node->parent_segment->id, node->parent_segment->color); 
+    printf("    [print_frontier_node] Node [%p] position: (%d, %d) directions: %d / segment: [%p] / segment ID: %d / segment color: %d\n", node, node->i, node->j, node->directions_count, node->parent_segment, node->parent_segment->id, node->parent_segment->color); 
 }
 
 
 void remove_frontier_direction(FrontierNode_t *node, int position) {
+    printf("[remove_frontier_direction] called with position %d and node: \n", position);
+    print_frontier_node(node);
+
     FrontierDirection_t *dir = node->frontiers[position];
     free_frontier_direction(dir);
 
@@ -61,19 +74,27 @@ void remove_frontier_direction(FrontierNode_t *node, int position) {
     node->directions_count -= 1;
 
     if (node->directions_count == 0) {
+        printf("[remove_frontier_direction] Was the last direction! Freeing the list :)\n");
         free(node->frontiers);
         node->frontiers = NULL;
     } else {
+        printf("[remove_frontier_direction] Reallocating the list to size %d\n",  node->directions_count);
         node->frontiers = realloc(node->frontiers, sizeof(FrontierDirection_t *) * node->directions_count);
+        printf("[remove_frontier_direction] List now is at %p\n",  node->frontiers);
     }
 }
 
 void free_frontier_node(FrontierNode_t *node) {
+    printf("[free_frontier_node] Freeing node at %p: \n", node);
+    print_frontier_node(node);
+
     for (int i = 0; i < node->directions_count; i++) {
+        printf("[free_frontier_node] Freeing direction %d\n", i);
         free_frontier_direction(node->frontiers[i]);
     }
 
     if (node->frontiers) {
+        printf("[free_frontier_node] Still had a frontiers list, so freeing it...\n");
         free(node->frontiers);
         node->frontiers = NULL;
     }
