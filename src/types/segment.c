@@ -38,13 +38,8 @@ float segment_point_distance(Segment_t *segment, char i, char j) {
 }
 
 FrontierNode_t *find_node_by_position(Segment_t *segment, char i, char j) {
-    // printf("[find_node_by_position] Searching for node in segment %d with position (%d, %d)\n", segment->id, i, j);
     for (int k = 0; k < segment->frontiers_count; k++) {
         FrontierNode_t *node = segment->frontiers[k];
-
-        // printf("[find_node_by_position] Checking node in index %d\n", k);
-        // print_frontier_node(node);
-
         if (node->i == i && node->j == j) {
             return node;
         }
@@ -92,6 +87,8 @@ char *get_all_frontier_colors(Segment_t *segment, int *found_colors) {
     char *colors = malloc(sizeof(char) * segment->frontiers_count * 4);
     *found_colors = 0;
 
+    // print_segment(segment);
+
     for (int k = 0; k < segment->frontiers_count; k++) {
         FrontierNode_t *frontier = segment->frontiers[k];
 
@@ -117,7 +114,7 @@ char *get_all_frontier_colors(Segment_t *segment, int *found_colors) {
         }
     }
 
-    printf("[get_all_frontier_colors] Segment is currently touching %d colors\n", *found_colors);
+    // printf("[get_all_frontier_colors] Segment is currently touching %d colors\n", *found_colors);
     return colors;
 }
 

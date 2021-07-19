@@ -275,7 +275,7 @@ void create_map(Map_t *map, char *matrix, char width, char height) {
     free(js_queue);
 }
 
-Segment_t *find_segment_by_id(Map_t *map, char id) {
+Segment_t *find_segment_by_id(Map_t *map, int id) {
     for (int i = 0; i < map->segment_count; i++) {
         if (map->segments[i]->id == id) {
             return map->segments[i];
@@ -303,11 +303,11 @@ void clone_map(Map_t *dest, Map_t *original) {
 
     int moves_size = sizeof(char) * original->moves_count;
     dest->moves = malloc(moves_size);
-    memcpy(dest, original, moves_size);
-
-    printf("[clone_map] Cloned the moves list to %p\n", dest->moves);
+    memcpy(dest->moves, original->moves, moves_size);
 
     dest->segment_count = original->segment_count;
+    
+    // printf("[clone_map] Cloned moves\n");
 
     // Clone segments
     dest->segments = malloc(sizeof(Segment_t *) * original->segment_count); 
@@ -315,12 +315,16 @@ void clone_map(Map_t *dest, Map_t *original) {
     for (int i = 0; i < original->segment_count; i++) {
         Segment_t *clone = malloc(sizeof(Segment_t));
         clone_segment(clone, original->segments[i]);
+        // printf("Cloned segment from ID %d to ID %d\n", original->segments[i]->id, clone->id);
         dest->segments[i] = clone;
     }
+
+    // printf("[clone_map] Cloned segments\n");
 
     for (int i = 0; i < original->segment_count; i++) {
         if (dest->segments[i]->id == original->initial_segment->id) {
             dest->initial_segment = dest->segments[i];
+            break;
         }
     }
 
@@ -341,14 +345,22 @@ void clone_map(Map_t *dest, Map_t *original) {
 
                 // The direction segment ID
                 int pointed_clone_segment_id = original_direction->pointed_node->parent_segment->id;
+
+                // printf("    [clone_map] pointed_clone_segment_id: %d\n", pointed_clone_segment_id);
+
                 Segment_t *pointed_clone_segment = find_segment_by_id(dest, pointed_clone_segment_id);
+
+                // printf("    [clone_map] Search returned a pointer to %p", pointed_clone_segment);
 
                 char original_pointed_i = original_direction->pointed_node->i;
                 char original_pointed_j = original_direction->pointed_node->j;
                 
-                // printf("[clone_map] Attempting to fix the node in (%d, %d)\n", original_pointed_i, original_pointed_j);
+                // printf("    [clone_map] Attempting to fix the node in (%d, %d)\n", original_pointed_i, original_pointed_j);
+
+                // print_segment(pointed_clone_segment);
+
                 FrontierNode_t *clone_pointed_node = find_node_by_position(pointed_clone_segment, original_pointed_i, original_pointed_j);
-                // printf("[clone_map] Found node at %p\n", clone_pointed_node);
+                // printf("    [clone_map] Found node at %p\n", clone_pointed_node);
 
                 // Attribute to clone
                 clone_direction->pointed_node = (struct FrontierNode_t *)clone_pointed_node;
@@ -359,12 +371,12 @@ void clone_map(Map_t *dest, Map_t *original) {
 }
 
 void paint_map(Map_t *dest, char color) {
-    printf("\n[paint_map] Attempting paint of map with %d. Initial segment has %d frontiers\n", color, dest->initial_segment->frontiers_count);
+    // printf("\n[paint_map] Attempting paint of map with %d. Initial segment has %d frontiers\n", color, dest->initial_segment->frontiers_count);
     
     // Add paint to the moves list
-    printf("[paint_map] Dest moves is %p\n", dest->moves);
+    // printf("[paint_map] Dest moves is %p\n", dest->moves);
     dest->moves = realloc(dest->moves, sizeof(char) * (dest->moves_count + 1));
-    printf("[paint_map] Dest moves after realloc is %p\n", dest->moves);
+    // printf("[paint_map] Dest moves after realloc is %p\n", dest->moves);
     dest->moves[dest->moves_count] = color;
     dest->moves_count += 1;
 
@@ -378,18 +390,18 @@ void paint_map(Map_t *dest, char color) {
     for (int k = 0; k < initial_segment->frontiers_count; k++) {
         FrontierNode_t *node = initial_segment->frontiers[k];
 
-        printf("[paint_map] Checking node in %d\n", k);
-        print_frontier_node(node);
+        // printf("[paint_map] Checking node in %d\n", k);
+        // print_frontier_node(node);
 
         for (int t = 0; t < node->directions_count; t++) {
             FrontierDirection_t *dir = node->frontiers[t];
 
-            printf("[paint_map] Checking direction in %d\n", t);
-            print_frontier_direction(dir);
+            // printf("[paint_map] Checking direction in %d\n", t);
+            // print_frontier_direction(dir);
 
-            printf("[paint_map] Checking match! Segment %d has color %d\n", dir->pointed_node->parent_segment->id, dir->pointed_node->parent_segment->color);
+            // printf("[paint_map] Checking match! Segment %d has color %d\n", dir->pointed_node->parent_segment->id, dir->pointed_node->parent_segment->color);
             if (dir->pointed_node->parent_segment->color == color) {
-                printf("[paint_map] Matched! Adding it...\n");
+                // printf("[paint_map] Matched! Adding it...\n");
                 buffer[added_segments] = (Segment_t *)(dir->pointed_node->parent_segment);
                 added_segments += 1;
             }
@@ -398,11 +410,11 @@ void paint_map(Map_t *dest, char color) {
     }
 
     // TODO: Remove later
-    printf("[paint_map] Before removing duplicates\n");
+    // printf("[paint_map] Before removing duplicates\n");
     for (int k = 0; k < added_segments; k++) {
         Segment_t *seg = buffer[k];
         if (seg != NULL) {
-            print_segment(seg);
+            // print_segment(seg);
         }
     }
 
@@ -425,11 +437,11 @@ void paint_map(Map_t *dest, char color) {
     }
 
     // TODO: Remove later
-    printf("[paint_map] After removing duplicates\n");
+    // printf("[paint_map] After removing duplicates\n");
     for (int k = 0; k < added_segments; k++) {
         Segment_t *seg = buffer[k];
         if (seg != NULL) {
-            print_segment(seg);
+            // print_segment(seg);
         }
     }
 
@@ -440,7 +452,7 @@ void paint_map(Map_t *dest, char color) {
         Segment_t *seg = buffer[k];
 
         if (seg != NULL) {
-            printf("[paint_map] (K = %d) Attempting merge of segment %d with %d\n", k, initial_segment->id, seg->id);
+            // printf("[paint_map] (K = %d) Attempting merge of segment %d with %d\n", k, initial_segment->id, seg->id);
             merge(initial_segment, seg);
             remove_segment_with_id(dest, seg->id);  
         }
@@ -454,6 +466,7 @@ void print_map(Map_t *map) {
 }
 
 void print_full_map(Map_t *map) {
+    printf("=================\n");
     print_map(map);
 
     for (int i = 0; i < map->segment_count; i++) {

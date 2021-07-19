@@ -4,7 +4,7 @@
 
 void solve_biggest_segment(Map_t *map) {
     while (map->segment_count > 1) {
-        printf("[solve_biggest_segment] Solving by the biggest segment. Map has %d segments\n", map->segment_count);
+        // printf("[solve_biggest_segment] Solving by the biggest segment. Map has %d segments\n", map->segment_count);
 
         int found_segments = 0;
         Segment_t **other_segments = get_all_frontier_segments(map->initial_segment, &found_segments);
@@ -22,7 +22,7 @@ void solve_biggest_segment(Map_t *map) {
         free(other_segments);
 
         if (segment) {
-            print_segment(segment);
+            // print_segment(segment);
             paint_map(map, segment->color);
         }
     }

@@ -20,7 +20,7 @@ void create_map(Map_t *map, char *matrix, char width, char height);
 /*
  * Finds a segment in a map with a specific ID
  */
-Segment_t *find_segment_by_id(Map_t *map, char id);
+Segment_t *find_segment_by_id(Map_t *map, int id);
 
 /*
  * Finds the largest non-initial segment

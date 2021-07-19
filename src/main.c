@@ -42,21 +42,21 @@ int main() {
     printf("\n === Solving by biggest resulting segment with 1 === \n");
     Map_t *biggest_resulting_segment_clone = malloc(sizeof(Map_t));
     clone_map(biggest_resulting_segment_clone, map);
-    solve_biggest_resulting_segment(map, 1);
+    solve_biggest_resulting_segment(biggest_resulting_segment_clone, 1);
     print_solution(biggest_resulting_segment_clone);
     free_map(biggest_resulting_segment_clone);
 
     printf("\n === Solving by biggest resulting segment with 2 === \n");
     Map_t *biggest_resulting_segment_2_clone = malloc(sizeof(Map_t));
     clone_map(biggest_resulting_segment_2_clone, map);
-    solve_biggest_resulting_segment(map, 2);
+    solve_biggest_resulting_segment(biggest_resulting_segment_2_clone, 2);
     print_solution(biggest_resulting_segment_2_clone);
     free_map(biggest_resulting_segment_2_clone);
 
     printf("\n === Solving by biggest resulting segment with 3 === \n");
     Map_t *biggest_resulting_segment_3_clone = malloc(sizeof(Map_t));
     clone_map(biggest_resulting_segment_3_clone, map);
-    solve_biggest_resulting_segment(map, 3);
+    solve_biggest_resulting_segment(biggest_resulting_segment_3_clone, 3);
     print_solution(biggest_resulting_segment_3_clone);
     free_map(biggest_resulting_segment_3_clone);
 
@@ -64,7 +64,7 @@ int main() {
     printf("\n === Solving by biggest resulting segment with 4 === \n");
     Map_t *biggest_resulting_segment_4_clone = malloc(sizeof(Map_t));
     clone_map(biggest_resulting_segment_4_clone, map);
-    solve_biggest_resulting_segment(map, 4);
+    solve_biggest_resulting_segment(biggest_resulting_segment_4_clone, 4);
     print_solution(biggest_resulting_segment_4_clone);
     free_map(biggest_resulting_segment_4_clone);
 

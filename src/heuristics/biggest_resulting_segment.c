@@ -4,7 +4,8 @@
 
 // Finds the best possible size in lookahead_factor rounds. Returns the size of the best possible
 int best_possible_size(Map_t *map, int lookahead_factor) {
-    if (lookahead_factor == 0) {
+    // printf("[best_possible_size] Called with lookahead of %d. Map has %d segments\n", lookahead_factor, map->segment_count);
+    if (lookahead_factor == 0 || map->segment_count == 1) {
         return map->initial_segment->size;
     }
 
@@ -14,11 +15,19 @@ int best_possible_size(Map_t *map, int lookahead_factor) {
     int best_size = 0;
 
     for (int k = 0; k < found_colors; k++) {
+        // printf("    [best_possible_size] Checking size for color %d\n", possible_colors[k]);   
         Map_t *color_clone = malloc(sizeof(Map_t));
         clone_map(color_clone, map);
+        // printf("    [best_possible_size] Cloned the map!\n");   
         paint_map(color_clone, possible_colors[k]);
+        // printf("    [best_possible_size] Painted the map!\n");   
 
-        int size = best_possible_size(color_clone, lookahead_factor - 1);
+        // TODO: Improve to avoid other solutions that also fill the map with more movements
+        int size = map->initial_segment->size;
+        if (map->segment_count > 1) {
+            // printf("    [best_possible_size] Still needs to solve. Recursive call!\n");   
+            size = best_possible_size(color_clone, lookahead_factor - 1);
+        }
 
         if (size > best_size) {
             best_size = size;
@@ -43,18 +52,18 @@ void solve_biggest_resulting_segment(Map_t *map, int lookahead_factor) {
         int best_color = 0;
 
         for (int k = 0; k < found_colors; k++) {
-            printf("    [solve_biggest_resulting_segment] Checking size for color %d\n", possible_colors[k]);   
+            // printf("    [solve_biggest_resulting_segment] Checking size for color %d\n", possible_colors[k]);   
             Map_t *color_clone = malloc(sizeof(Map_t));
             clone_map(color_clone, map);
-            printf("    [solve_biggest_resulting_segment] Cloned the map!\n");   
+            // printf("    [solve_biggest_resulting_segment] Cloned the map!\n");   
             paint_map(color_clone, possible_colors[k]);
-            printf("    [solve_biggest_resulting_segment] Painted the map!\n");   
+            // printf("    [solve_biggest_resulting_segment] Painted the map!\n");   
 
             int size = best_possible_size(color_clone, lookahead_factor - 1);
-            printf("    [solve_biggest_resulting_segment] Best size would be %d\n", size);   
+            // printf("    [solve_biggest_resulting_segment] Best size would be %d\n", size);   
 
             if (size > best_size) {
-                printf("        [solve_biggest_resulting_segment] This size is better than the previous one! Updating...\n");   
+                // printf("        [solve_biggest_resulting_segment] This size is better than the previous one! Updating...\n");   
                 best_size = size;
                 best_color = possible_colors[k];
             }
@@ -64,7 +73,7 @@ void solve_biggest_resulting_segment(Map_t *map, int lookahead_factor) {
 
         free(possible_colors);
 
-        printf("[solve_biggest_resulting_segment] Painting with color %d!\n", best_color);
+        // printf("[solve_biggest_resulting_segment] Painting with color %d!\n", best_color);
         paint_map(map, best_color);
     }
 }
