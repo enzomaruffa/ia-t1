@@ -88,6 +88,39 @@ Segment_t **get_all_frontier_segments(Segment_t *segment, int *found_segments) {
     return segments;
 }
 
+char *get_all_frontier_colors(Segment_t *segment, int *found_colors) {
+    char *colors = malloc(sizeof(char) * segment->frontiers_count * 4);
+    *found_colors = 0;
+
+    for (int k = 0; k < segment->frontiers_count; k++) {
+        FrontierNode_t *frontier = segment->frontiers[k];
+
+        for (int t = 0; t < frontier->directions_count; t++) {
+            FrontierDirection_t *direction = frontier->frontiers[t];
+
+            Segment_t *pointed_segment = (Segment_t *)direction->pointed_node->parent_segment;
+
+            // Check if we haven't already added this segment color
+            int has_added_color_before = 0;
+
+            for (int w = 0; w < *found_colors; w++) {
+                if (colors[w] == pointed_segment->color) {
+                    has_added_color_before = 1;
+                    break;
+                }
+            }
+
+            if (!has_added_color_before) {
+                colors[*found_colors] = pointed_segment->color;
+                *found_colors += 1;
+            }
+        }
+    }
+
+    printf("[get_all_frontier_colors] Segment is currently touching %d colors\n", *found_colors);
+    return colors;
+}
+
 
 void remove_directions_pointing_segment(Segment_t *segment, Segment_t *pointed_segment) {
     // Remove frontier_directions from both segments that point to each other

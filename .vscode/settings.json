@@ -3,6 +3,8 @@
         "utils.h": "c",
         "first_segment.h": "c",
         "map.h": "c",
-        "segment.h": "c"
+        "segment.h": "c",
+        "biggest_segment.h": "c",
+        "biggest_resulting_segment.h": "c"
     }
 }
