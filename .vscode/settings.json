@@ -2,6 +2,7 @@
     "files.associations": {
         "utils.h": "c",
         "first_segment.h": "c",
-        "map.h": "c"
+        "map.h": "c",
+        "segment.h": "c"
     }
 }

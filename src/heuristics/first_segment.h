@@ -3,6 +3,7 @@
 
 #include "../types/map.h"
 
+// Chooses the first segment from the list
 void solve_first_segment(Map_t *map);
 
 #endif

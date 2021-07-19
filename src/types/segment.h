@@ -27,6 +27,11 @@ float segment_point_distance(Segment_t *segment, char i, char j);
 FrontierNode_t *find_node_by_position(Segment_t *segment, char i, char j);
 
 /*
+ * Gets a list of all segments touching this segment
+ */ 
+Segment_t **get_all_frontier_segments(Segment_t *segment, int *found_segments);
+
+/*
  * Merges two segments in the segment_1
  */
 void merge(Segment_t *segment_1, Segment_t *segment_2);

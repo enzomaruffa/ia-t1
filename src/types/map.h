@@ -23,6 +23,11 @@ void create_map(Map_t *map, char *matrix, char width, char height);
 Segment_t *find_segment_by_id(Map_t *map, char id);
 
 /*
+ * Finds the largest non-initial segment
+ */
+Segment_t *find_largest_non_initial_segment(Map_t *map);
+
+/*
  * Deep clones the map
  */
 void clone_map(Map_t *dest, Map_t *original);

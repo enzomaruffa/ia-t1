@@ -275,7 +275,6 @@ void create_map(Map_t *map, char *matrix, char width, char height) {
     free(js_queue);
 }
 
-
 Segment_t *find_segment_by_id(Map_t *map, char id) {
     for (int i = 0; i < map->segment_count; i++) {
         if (map->segments[i]->id == id) {
@@ -283,6 +282,20 @@ Segment_t *find_segment_by_id(Map_t *map, char id) {
         }
     }
     return NULL;
+}
+
+Segment_t *find_largest_non_initial_segment(Map_t *map) {
+    Segment_t *segment = NULL;
+    int biggest_segment_size = 0;
+
+    for (int k = 0; k < map->segment_count; k++) {
+        if (map->segments[k]->size > biggest_segment_size && map->segments[k] != map->initial_segment) {
+            segment = map->segments[k];
+            biggest_segment_size = segment->size;
+        }
+    }
+
+    return segment;
 }
 
 void clone_map(Map_t *dest, Map_t *original) {

@@ -52,6 +52,43 @@ FrontierNode_t *find_node_by_position(Segment_t *segment, char i, char j) {
     return NULL;
 }
 
+
+/*
+ * Gets a list of all segments touching this segment
+ */ 
+Segment_t **get_all_frontier_segments(Segment_t *segment, int *found_segments) {
+    Segment_t **segments = malloc(sizeof(Segment_t *) * segment->frontiers_count * 4);
+    *found_segments = 0;
+
+    for (int k = 0; k < segment->frontiers_count; k++) {
+        FrontierNode_t *frontier = segment->frontiers[k];
+
+        for (int t = 0; t < frontier->directions_count; t++) {
+            FrontierDirection_t *direction = frontier->frontiers[t];
+
+            Segment_t *pointed_segment = (Segment_t *)direction->pointed_node->parent_segment;
+
+            // Check if we haven't already added this segment
+            int has_added_before = 0;
+
+            for (int w = 0; w < *found_segments; w++) {
+                if (segments[w] == pointed_segment) {
+                    has_added_before = 1;
+                    break;
+                }
+            }
+
+            if (!has_added_before) {
+                segments[*found_segments] = pointed_segment;
+                *found_segments += 1;
+            }
+        }
+    }
+
+    return segments;
+}
+
+
 void remove_directions_pointing_segment(Segment_t *segment, Segment_t *pointed_segment) {
     // Remove frontier_directions from both segments that point to each other
     // printf("[remove_directions_pointing_segment] Removing from segment %d pointing to %d\n", segment->id, pointed_segment->id);

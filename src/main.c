@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "map.h"
+#include "heuristics/biggest_segment.h"
 #include "heuristics/first_segment.h"
 #include "utils/utils.h"
 
@@ -23,17 +24,19 @@ int main() {
 
     print_full_map(map);
 
-    Map_t *map_clone = malloc(sizeof(Map_t));
+    printf("\n === Solving by first segment === \n");
+    Map_t *first_segment_clone = malloc(sizeof(Map_t));
+    clone_map(first_segment_clone, map);
+    solve_first_segment(first_segment_clone);
+    print_solution(first_segment_clone);
+    free_map(first_segment_clone);
 
-    clone_map(map_clone, map);
-
-    print_full_map(map_clone);
-
-    // solve_first_segment(map);
-
-    // printf("\n === Found a solution! Printing it === \n");
-
-    // print_solution(map);
+    printf("\n === Solving by biggest segment === \n");
+    Map_t *biggest_segment_clone = malloc(sizeof(Map_t));
+    clone_map(biggest_segment_clone, map);
+    solve_biggest_segment(biggest_segment_clone);
+    print_solution(biggest_segment_clone);
+    free_map(biggest_segment_clone);
 
     free_map(map);
     return 0;
