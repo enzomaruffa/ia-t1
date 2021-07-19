@@ -26,8 +26,8 @@ void print_frontier_direction(FrontierDirection_t *direction) {
 }
 
 void free_frontier_direction(FrontierDirection_t *direction) {
-    printf("[free_frontier_direction] Freeing direction at %p: \n", direction);
-    print_frontier_direction(direction);
+    // printf("[free_frontier_direction] Freeing direction at %p: \n", direction);
+    // print_frontier_direction(direction);
     free(direction);
 }
 
@@ -60,8 +60,8 @@ void print_frontier_node(FrontierNode_t *node) {
 
 
 void remove_frontier_direction(FrontierNode_t *node, int position) {
-    printf("[remove_frontier_direction] called with position %d and node: \n", position);
-    print_frontier_node(node);
+    // printf("[remove_frontier_direction] called with position %d and node: \n", position);
+    // print_frontier_node(node);
 
     FrontierDirection_t *dir = node->frontiers[position];
     free_frontier_direction(dir);
@@ -74,27 +74,27 @@ void remove_frontier_direction(FrontierNode_t *node, int position) {
     node->directions_count -= 1;
 
     if (node->directions_count == 0) {
-        printf("[remove_frontier_direction] Was the last direction! Freeing the list :)\n");
+        // printf("[remove_frontier_direction] Was the last direction! Freeing the list :)\n");
         free(node->frontiers);
         node->frontiers = NULL;
     } else {
-        printf("[remove_frontier_direction] Reallocating the list to size %d\n",  node->directions_count);
+        // printf("[remove_frontier_direction] Reallocating the list to size %d\n",  node->directions_count);
         node->frontiers = realloc(node->frontiers, sizeof(FrontierDirection_t *) * node->directions_count);
-        printf("[remove_frontier_direction] List now is at %p\n",  node->frontiers);
+        // printf("[remove_frontier_direction] List now is at %p\n",  node->frontiers);
     }
 }
 
 void free_frontier_node(FrontierNode_t *node) {
-    printf("[free_frontier_node] Freeing node at %p: \n", node);
-    print_frontier_node(node);
+    // printf("[free_frontier_node] Freeing node at %p: \n", node);
+    // print_frontier_node(node);
 
     for (int i = 0; i < node->directions_count; i++) {
-        printf("[free_frontier_node] Freeing direction %d\n", i);
+        // printf("[free_frontier_node] Freeing direction %d\n", i);
         free_frontier_direction(node->frontiers[i]);
     }
 
     if (node->frontiers) {
-        printf("[free_frontier_node] Still had a frontiers list, so freeing it...\n");
+        // printf("[free_frontier_node] Still had a frontiers list, so freeing it...\n");
         free(node->frontiers);
         node->frontiers = NULL;
     }

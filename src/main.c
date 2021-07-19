@@ -19,6 +19,8 @@ int main() {
     Map_t *map = malloc(sizeof(Map_t));
     create_map(map, map_cells, width, height);
 
+    free(map_cells);
+
     print_full_map(map);
 
     solve_first_segment(map);

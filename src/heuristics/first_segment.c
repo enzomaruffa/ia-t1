@@ -18,7 +18,7 @@ void solve_first_segment(Map_t *map) {
             // Get the color of the first segment
             // Paint with that color
             paint_map(map, segment->color);
-            printf("[solve_first_segment] Finished map paint! \n");
+            // printf("[solve_first_segment] Finished map paint! \n");
         }
     }
 }
