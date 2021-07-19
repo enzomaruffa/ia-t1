@@ -313,6 +313,8 @@ void clone_map(Map_t *dest, Map_t *original) {
     for (int i = 0; i < original->segment_count; i++) {
         Segment_t *original_segment = original->segments[i];
         Segment_t *clone_segment = dest->segments[i];
+        // printf("[clone_map] Original segment index %d has id %d\n", i, original_segment->id);
+        // printf("[clone_map] Clone segment index %d has id %d\n", i, clone_segment->id);
 
         for (int j = 0; j < original_segment->frontiers_count; j++) {
             FrontierNode_t *original_frontier = original_segment->frontiers[j];
@@ -323,10 +325,15 @@ void clone_map(Map_t *dest, Map_t *original) {
                 FrontierDirection_t *clone_direction = clone_frontier->frontiers[k];
 
                 // The direction segment ID
-                char original_pointed_x = original_direction->pointed_node->i;
-                char original_pointed_y = original_direction->pointed_node->j;
+                int pointed_clone_segment_id = original_direction->pointed_node->parent_segment->id;
+                Segment_t *pointed_clone_segment = find_segment_by_id(dest, pointed_clone_segment_id);
+
+                char original_pointed_i = original_direction->pointed_node->i;
+                char original_pointed_j = original_direction->pointed_node->j;
                 
-                FrontierNode_t *clone_pointed_node = find_node_by_position(clone_segment, original_pointed_x, original_pointed_y);
+                // printf("[clone_map] Attempting to fix the node in (%d, %d)\n", original_pointed_i, original_pointed_j);
+                FrontierNode_t *clone_pointed_node = find_node_by_position(pointed_clone_segment, original_pointed_i, original_pointed_j);
+                // printf("[clone_map] Found node at %p\n", clone_pointed_node);
 
                 // Attribute to clone
                 clone_direction->pointed_node = (struct FrontierNode_t *)clone_pointed_node;

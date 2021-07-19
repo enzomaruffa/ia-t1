@@ -48,7 +48,6 @@ void clone_frontier_node(FrontierNode_t *dest, FrontierNode_t *original) {
         FrontierDirection_t *clone = malloc(sizeof(FrontierDirection_t));
         clone_frontier_direction(clone, original->frontiers[i]);
         clone->parent_node = (struct FrontierNode_t *)dest;
-        // TODO: Strozzi
         dest->frontiers[i] = clone;
     }
 }

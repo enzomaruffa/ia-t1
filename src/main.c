@@ -23,11 +23,17 @@ int main() {
 
     print_full_map(map);
 
-    solve_first_segment(map);
+    Map_t *map_clone = malloc(sizeof(Map_t));
 
-    printf("\n === Found a solution! Printing it === \n");
+    clone_map(map_clone, map);
 
-    print_solution(map);
+    print_full_map(map_clone);
+
+    // solve_first_segment(map);
+
+    // printf("\n === Found a solution! Printing it === \n");
+
+    // print_solution(map);
 
     free_map(map);
     return 0;
