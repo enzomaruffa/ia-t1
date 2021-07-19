@@ -426,26 +426,21 @@ void paint_map(Map_t *dest, char color) {
 }
 
 void print_map(Map_t *map) {
-    printf("Map [%p] moves: %d  / segments: %d\n", map, map->moves_count, map->segment_count);
+    printf("[print_map] Map [%p] moves: %d  / segments: %d\n", map, map->moves_count, map->segment_count);
 }
 
 void print_full_map(Map_t *map) {
-    printf("=================\n");
-    printf("  MAP ==\n");
     print_map(map);
 
     for (int i = 0; i < map->segment_count; i++) {
-        printf("     SEGMENT ==\n");
         Segment_t *seg = map->segments[i];
         print_segment(seg);
         
         for (int j = 0; j < seg->frontiers_count; j++) {
-            printf("      FRONTIER NODE ==\n");
             FrontierNode_t *node = seg->frontiers[j];
             print_frontier_node(node);
 
             for (int k = 0; k < node->directions_count; k++) {
-                printf("       FRONTIER DIRECTION ==\n");
                 FrontierDirection_t *dir = node->frontiers[k];
                 print_frontier_direction(dir);
             }

@@ -16,12 +16,12 @@ void clone_frontier_direction(FrontierDirection_t *dest, FrontierDirection_t *or
 void print_frontier_direction(FrontierDirection_t *direction) {
     if (direction->pointed_node) {
         if (direction->pointed_node->parent_segment) {
-            printf("[print_frontier_direction] Direction [%p] %d / pointed node [%p] in (%d, %d) / pointed node segment [%p] id %d\n", direction, direction->direction, direction->pointed_node, direction->pointed_node->i, direction->pointed_node->j, direction->pointed_node->parent_segment, direction->pointed_node->parent_segment->id); 
+            printf("            [print_frontier_direction] Direction [%p] %d / pointed node [%p] in (%d, %d) / pointed node segment [%p] id %d\n", direction, direction->direction, direction->pointed_node, direction->pointed_node->i, direction->pointed_node->j, direction->pointed_node->parent_segment, direction->pointed_node->parent_segment->id); 
         } else {
-            printf("[print_frontier_direction] Direction [%p] %d / pointed node [%p] in (%d, %d)\n", direction, direction->direction, direction->pointed_node, direction->pointed_node->i, direction->pointed_node->j); 
+            printf("            [print_frontier_direction] Direction [%p] %d / pointed node [%p] in (%d, %d)\n", direction, direction->direction, direction->pointed_node, direction->pointed_node->i, direction->pointed_node->j); 
         }
     } else {
-        printf("[print_frontier_direction] Direction [%p] %d / pointed node [%p]\n", direction, direction->direction, direction->pointed_node); 
+        printf("            [print_frontier_direction] Direction [%p] %d / pointed node [%p]\n", direction, direction->direction, direction->pointed_node); 
     }
 }
 
@@ -55,7 +55,7 @@ void clone_frontier_node(FrontierNode_t *dest, FrontierNode_t *original) {
 
 void print_frontier_node(FrontierNode_t *node) {
     // print_segment(node->parent_segment);
-    printf("    [print_frontier_node] Node [%p] position: (%d, %d) directions: %d / segment: [%p] / segment ID: %d / segment color: %d\n", node, node->i, node->j, node->directions_count, node->parent_segment, node->parent_segment->id, node->parent_segment->color); 
+    printf("        [print_frontier_node] Node [%p] position: (%d, %d) directions: %d / segment: [%p] / segment ID: %d / segment color: %d\n", node, node->i, node->j, node->directions_count, node->parent_segment, node->parent_segment->id, node->parent_segment->color); 
 }
 
 
