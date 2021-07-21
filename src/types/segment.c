@@ -38,15 +38,15 @@ float segment_point_distance(Segment_t *segment, char i, char j) {
 }
 
 FrontierNode_t *find_node_by_position(Segment_t *segment, char i, char j) {
-    printf("[find_node_by_position] Starting search for (%d, %d)\n", i, j);
-    print_segment(segment);
+    // printf("[find_node_by_position] Starting search for (%d, %d)\n", i, j);
+    // print_segment(segment);
     for (int k = 0; k < segment->frontiers_count; k++) {
         FrontierNode_t *node = segment->frontiers[k];
         if (node->i == i && node->j == j) {
             return node;
         }
     }
-    printf("[find_node_by_position] Did not find\n", i, j);
+    // printf("[find_node_by_position] Did not find\n", i, j);
     return NULL;
 }
 
