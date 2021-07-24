@@ -220,7 +220,13 @@ void create_map(Map_t *map, char *matrix, char width, char height) {
     char *js_queue = malloc(sizeof(char) * width * height);
 
     printf("Finished setup of the map. Current state: \n");
-    // print_map(map);
+    
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            printf("%d ", matrix[i * width + j]);
+        }
+        printf("\n");
+    }
 
     // TODO: Create segments and moves
     for (int i = 0; i < height; i++) {
