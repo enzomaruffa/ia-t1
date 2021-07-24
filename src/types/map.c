@@ -238,6 +238,11 @@ void create_map(Map_t *map, char *matrix, char width, char height) {
                 new_segment->frontiers_count = 0;
                 new_segment->frontiers = malloc(sizeof(FrontierNode_t *) * width * height);
 
+                new_segment->gs_distance_to_initial = -1;
+                new_segment->gs_distance_to_target = -1;
+                new_segment->gs_factor = -1;
+                new_segment->gs_visited = 0;
+
                 new_segment->color = matrix[i * width + j];
 
                 printf("Created a new segment at %p in: \n", new_segment);

@@ -5,6 +5,13 @@ struct Segment_t {
     int id;
     int size;
     char color;
+
+    // int segments_touching; // Must be updated
+
+    char gs_visited;
+    int gs_distance_to_initial;
+    int gs_distance_to_target;
+    int gs_factor;
     
     int frontiers_count;
 };

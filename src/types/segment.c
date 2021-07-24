@@ -10,6 +10,10 @@ void clone_segment(Segment_t *dest, Segment_t *original) {
     dest->color = original->color;
     dest->size = original->size;
     dest->frontiers_count = original->frontiers_count;
+    dest->gs_distance_to_initial = original->gs_distance_to_initial;
+    dest->gs_distance_to_target = original->gs_distance_to_target;
+    dest->gs_factor = original->gs_factor;
+    dest->gs_visited = original->gs_visited;
 
     dest->frontiers = malloc(sizeof(FrontierNode_t *) * original->frontiers_count);
 
@@ -200,7 +204,7 @@ void merge(Segment_t *segment_1, Segment_t *segment_2) {
 }
 
 void print_segment(Segment_t *segment) {
-    printf("    [print_segment] Segment [%p] id: %d / size: %d / frontiers: %p, frontiers_count: %d / color: %d\n", segment, segment->id, segment->size, segment->frontiers, segment->frontiers_count, segment->color);
+    printf("    [print_segment] Segment [%p] id: %d / size: %d / frontiers: %p, frontiers_count: %d / color: %d / gs_visited: %d, gs_factor: %d, gs_distance_to_initial: %d, gs_distance_to_target: %d\n", segment, segment->id, segment->size, segment->frontiers, segment->frontiers_count, segment->color, segment->gs_visited, segment->gs_factor, segment->gs_distance_to_initial, segment->gs_distance_to_target);
 }
 
 void remove_frontier_node(Segment_t *segment, int position) {
