@@ -26,8 +26,8 @@ char read_parameters(char *width, char *height, char *colors_count) {
         return 1;
     }
 
-    // Get the width
-    *width = atoi(pch);
+    // Get the height
+    *height = atoi(pch);
 
     pch = strtok(NULL, " ");
     if (pch == NULL) {
@@ -35,8 +35,8 @@ char read_parameters(char *width, char *height, char *colors_count) {
         return 1;
     }
 
-    // Get the height
-    *height = atoi(pch);
+    // Get the width
+    *width = atoi(pch);
 
     pch = strtok(NULL, " ");
     if (pch == NULL) {
