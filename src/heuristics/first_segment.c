@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include "../types/map.h"
 
-void solve_first_segment(Map_t *map) {
-    while (map->segment_count > 1) {
+void solve_first_segment(Map_t *map, int seg_count_cap) {
+    while (map->segment_count > seg_count_cap) {
         Segment_t *segment = NULL;
 
         // printf("[solve_first_segment] Solving by the first segment. Map has %d segments\n", map->segment_count);

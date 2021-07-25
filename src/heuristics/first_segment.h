@@ -4,6 +4,6 @@
 #include "../types/map.h"
 
 // Chooses the first segment from the list
-void solve_first_segment(Map_t *map);
+void solve_first_segment(Map_t *map, int seg_count_cap);
 
 #endif

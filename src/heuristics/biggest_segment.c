@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include "../types/map.h"
 
-void solve_biggest_segment(Map_t *map) {
-    while (map->segment_count > 1) {
+void solve_biggest_segment(Map_t *map, int seg_count_cap) {
+    while (map->segment_count > seg_count_cap) {
         // printf("[solve_biggest_segment] Solving by the biggest segment. Map has %d segments\n", map->segment_count);
 
         int found_segments = 0;

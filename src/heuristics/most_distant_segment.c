@@ -213,21 +213,15 @@ int choose_move(Map_t *map) {
     return !smallest_distance;
 }
 
-void solve_most_distant_segment(Map_t *map, int moves_before_recalculating) {
-    while (map->segment_count > 1) {
-        // printf("Map segment count: %d\n", map->segment_count);
-        // printf("Updating the graph...\n");
+void solve_most_distant_segment(Map_t *map, int moves_before_recalculating, int seg_count_cap) {
+    while (map->segment_count > seg_count_cap) {
         update_graph(map);
-        // printf("Updated the graph!\n");
 
         int moves_done = 0;
         int reached_target = 0;
 
-        // TODO: Add check to see if target was reached
         while (moves_done < moves_before_recalculating && map->segment_count > 1 && !reached_target) {
-            // printf("    Doing a new move!\n");
             reached_target = choose_move(map);
-            // printf("    Done move!\n");
             moves_done += 1;
         }
     }
