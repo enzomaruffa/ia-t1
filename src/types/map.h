@@ -3,6 +3,8 @@
 #include "segment.h"
 
 typedef struct {
+    char possible_colors;
+
     int moves_count;
     char* moves;
 
@@ -15,7 +17,7 @@ typedef struct {
 /*
  * Creates a map based on a matrix
  */
-void create_map(Map_t *map, char *matrix, char width, char height);
+void create_map(Map_t *map, char *matrix, char width, char height, char possible_colors);
 
 /*
  * Finds a segment in a map with a specific ID

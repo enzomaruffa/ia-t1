@@ -43,7 +43,7 @@ int best_possible_size(Map_t *map, int lookahead_factor) {
 
 void solve_biggest_resulting_segment(Map_t *map, int lookahead_factor) {
     while (map->segment_count > 1) {
-        printf("[solve_biggest_resulting_segment] Solving by the biggest resulting segment segment. Map has %d segments\n", map->segment_count);
+        // printf("[solve_biggest_resulting_segment] Solving by the biggest resulting segment segment. Map has %d segments\n", map->segment_count);
             
         int found_colors = 0;
         char *possible_colors = get_all_frontier_colors(map->initial_segment, &found_colors);
