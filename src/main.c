@@ -91,34 +91,34 @@ int main() {
     free_map(biggest_resulting_segment_2_clone);
 
     
-    printf("\n === Solving by biggest resulting segment with 3 === \n");
-    Map_t *biggest_resulting_segment_3_clone = malloc(sizeof(Map_t));
-    clone_map(biggest_resulting_segment_3_clone, map);
+    // printf("\n === Solving by biggest resulting segment with 3 === \n");
+    // Map_t *biggest_resulting_segment_3_clone = malloc(sizeof(Map_t));
+    // clone_map(biggest_resulting_segment_3_clone, map);
 
-    start = clock();
-    solve_biggest_resulting_segment(biggest_resulting_segment_3_clone, 3);
-    print_solution(biggest_resulting_segment_3_clone);
+    // start = clock();
+    // solve_biggest_resulting_segment(biggest_resulting_segment_3_clone, 3);
+    // print_solution(biggest_resulting_segment_3_clone);
 
-    end = clock();
-    seconds = (float)(end - start) / CLOCKS_PER_SEC;
-    printf("Total time: %f\n", seconds);
+    // end = clock();
+    // seconds = (float)(end - start) / CLOCKS_PER_SEC;
+    // printf("Total time: %f\n", seconds);
 
-    free_map(biggest_resulting_segment_3_clone);
+    // free_map(biggest_resulting_segment_3_clone);
 
     
-    printf("\n === Solving by biggest resulting segment with 4 === \n");
-    Map_t *biggest_resulting_segment_4_clone = malloc(sizeof(Map_t));
-    clone_map(biggest_resulting_segment_4_clone, map);
+    // printf("\n === Solving by biggest resulting segment with 4 === \n");
+    // Map_t *biggest_resulting_segment_4_clone = malloc(sizeof(Map_t));
+    // clone_map(biggest_resulting_segment_4_clone, map);
 
-    start = clock();
-    solve_biggest_resulting_segment(biggest_resulting_segment_4_clone, 4);
-    print_solution(biggest_resulting_segment_4_clone);
+    // start = clock();
+    // solve_biggest_resulting_segment(biggest_resulting_segment_4_clone, 4);
+    // print_solution(biggest_resulting_segment_4_clone);
 
-    end = clock();
-    seconds = (float)(end - start) / CLOCKS_PER_SEC;
-    printf("Total time: %f\n", seconds);
+    // end = clock();
+    // seconds = (float)(end - start) / CLOCKS_PER_SEC;
+    // printf("Total time: %f\n", seconds);
 
-    free_map(biggest_resulting_segment_4_clone);
+    // free_map(biggest_resulting_segment_4_clone);
 
 
     printf("\n === Solving by most distant segment with 20 === \n");
@@ -134,6 +134,20 @@ int main() {
     printf("Total time: %f\n", seconds);
 
     free_map(most_distant_segment_clone_20);
+
+    printf("\n === Solving by most distant segment with 15 === \n");
+    Map_t *most_distant_segment_clone_15 = malloc(sizeof(Map_t));
+    clone_map(most_distant_segment_clone_15, map);
+
+    start = clock();
+    solve_most_distant_segment(most_distant_segment_clone_15, 15);
+    print_solution(most_distant_segment_clone_15);
+
+    end = clock();
+    seconds = (float)(end - start) / CLOCKS_PER_SEC;
+    printf("Total time: %f\n", seconds);
+
+    free_map(most_distant_segment_clone_15);
 
 
     printf("\n === Solving by most distant segment with 10 === \n");
