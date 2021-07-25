@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "../types/map.h"
 
 // Finds the best possible size in lookahead_factor rounds. Returns the size of the best possible
@@ -8,6 +9,33 @@ int best_possible_size(Map_t *map, int lookahead_factor) {
     if (lookahead_factor == 0 || map->segment_count == 1) {
         return map->initial_segment->size;
     }
+
+    // if (lookahead_factor == 1) {
+    //     // Instead of painting the map, sum the sizes of the neighbours + this node for each possible color
+    //     int *sizes = malloc(sizeof(int) * map->possible_colors);
+    //     memset(sizes, map->initial_segment->size, sizeof(int) * map->possible_colors);
+
+    //     int segments_count = 0;
+    //     Segment_t **frontiers = get_all_frontier_segments(map->initial_segment, &segments_count);
+
+    //     for (int k = 0; k < segments_count; k++) {
+    //         Segment_t *seg = frontiers[k];
+    //         sizes[seg->color - 1] += seg->size;
+    //     }
+
+    //     int biggest_size = 0;
+
+    //     for (int i = 0; i < map->possible_colors; i++) {
+    //         if (sizes[i] > biggest_size) {
+    //             biggest_size = sizes[i];
+    //         }
+    //     }
+
+    //     free(frontiers);
+    //     free(sizes);
+
+    //     return biggest_size;
+    // }
 
     int found_colors = 0;
     char *possible_colors = get_all_frontier_colors(map->initial_segment, &found_colors);
@@ -44,7 +72,10 @@ int best_possible_size(Map_t *map, int lookahead_factor) {
 void solve_biggest_resulting_segment(Map_t *map, int lookahead_factor) {
     while (map->segment_count > 1) {
         // printf("[solve_biggest_resulting_segment] Solving by the biggest resulting segment segment. Map has %d segments\n", map->segment_count);
-            
+
+        // If lookahead factor == 1, do the same as currently being done above. 
+
+        // Else:
         int found_colors = 0;
         char *possible_colors = get_all_frontier_colors(map->initial_segment, &found_colors);
 

@@ -128,7 +128,7 @@ int choose_move(Map_t *map) {
 
     // printf("    [choose_move] Found %d frontier segments\n", frontier_segments_count);
 
-    // Get the smallest distance we have
+    // // Get the smallest distance we have
     // for (int k = 0; k < frontier_segments_count; k++) {
     //     print_segment(frontier_segments[k]);
     // }
@@ -154,7 +154,7 @@ int choose_move(Map_t *map) {
 
     // printf("    [choose_move] Smallest distances: \n");
     // for (int i = 0; i < map->possible_colors; i++) {
-        // printf("%d ", colors_smallest_distances[i]);
+    //     printf("%d ", colors_smallest_distances[i]);
     // }
     // printf("\n");
 
@@ -181,25 +181,28 @@ int choose_move(Map_t *map) {
 
     // printf("    [choose_move] Color factors: \n");
     // for (int i = 0; i < map->possible_colors; i++) {
-        // printf("%d ", colors_factor_sum[i]);
+    //     printf("%d ", colors_factor_sum[i]);
     // }
     // printf("\n");
 
     // Choose the color with the biggest color_factor_sum
     char color = 0;
-    char color_factor = 0;
+    int color_factor = 0;
 
     for (int k = 0; k < map->possible_colors; k++) {
-        // printf("    [choose_move] Checking color %d\n", k + 1);
+        // printf("    [choose_move] Checking color %d in index %d\n", k + 1, k);
         if (colors_factor_sum[k] > color_factor) {
             // printf("    [choose_move] Bigger than the original color factor: %d vs %d\n", colors_factor_sum[k], color_factor);
             color = (char)k;
             color_factor = colors_factor_sum[k];
+            // printf("    [choose_move] Color now %d and color factor %d\n", color, color_factor);
         }
     }
 
     // NOTE: Assumes that for K possible colors, colors go from [1, K]. So increase 1 in the color.
+    // printf("[choose_move] Chose color in index %d\n", color);
     color += 1;
+    // printf("[choose_move] Chose color: %d\n", color);
 
     free(colors_factor_sum);
     free(frontier_segments);
@@ -212,14 +215,19 @@ int choose_move(Map_t *map) {
 
 void solve_most_distant_segment(Map_t *map, int moves_before_recalculating) {
     while (map->segment_count > 1) {
+        // printf("Map segment count: %d\n", map->segment_count);
+        // printf("Updating the graph...\n");
         update_graph(map);
+        // printf("Updated the graph!\n");
 
         int moves_done = 0;
         int reached_target = 0;
 
         // TODO: Add check to see if target was reached
         while (moves_done < moves_before_recalculating && map->segment_count > 1 && !reached_target) {
+            // printf("    Doing a new move!\n");
             reached_target = choose_move(map);
+            // printf("    Done move!\n");
             moves_done += 1;
         }
     }
