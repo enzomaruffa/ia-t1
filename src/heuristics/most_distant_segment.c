@@ -46,7 +46,7 @@ Segment_t *forward_propagate(Segment_t *initial_segment, Segment_t **queue_segme
 
         current_segment_iteration += 1;
 
-        // Curently prioritizes the one with the biggest distance and smallest factor
+        // Curently prioritizes the one with the biggest distance and smalles factor
         if (current_segment->gs_distance_to_initial > target_segment->gs_distance_to_initial) {
             target_segment = current_segment;
         } else if (current_segment->gs_distance_to_initial == target_segment->gs_distance_to_initial
@@ -107,8 +107,10 @@ void update_graph(Map_t *map) {
         segment->gs_visited = 0;
     }
     
+    // printf("Allocating queue\n");
     Segment_t **queue_segments = malloc(sizeof(Segment_t *) * map->segment_count);
 
+    // printf("Forward propagating\n");
     Segment_t *target_segment = forward_propagate(map->initial_segment, queue_segments);
 
     // Reset the visited - can be removed if significant by reversing the use of the visited flag
@@ -116,6 +118,7 @@ void update_graph(Map_t *map) {
         map->segments[k]->gs_visited = 0;
     }
 
+    // printf("Backward propagating\n");
     backward_propagate(target_segment, queue_segments);
 
     free(queue_segments);
@@ -162,8 +165,8 @@ int choose_move(Map_t *map) {
 
     // NOTE: This one is using the sum of the segments. Another approach is to get the max
     // Get all the sum of the factors for the colors in the smallest_distance_segments
-    int *colors_factor_sum = malloc(sizeof(int) * map->possible_colors);
-    memset(colors_factor_sum, 0, sizeof(int) * map->possible_colors);
+    unsigned long long int *colors_factor_sum = malloc(sizeof(unsigned long long int) * map->possible_colors);
+    memset(colors_factor_sum, 0, sizeof(unsigned long long int) * map->possible_colors);
 
     // NOTE: Assumes that for K possible colors, colors go from [1, K]
 
@@ -181,28 +184,28 @@ int choose_move(Map_t *map) {
 
     // printf("    [choose_move] Color factors: \n");
     // for (int i = 0; i < map->possible_colors; i++) {
-    //     printf("%d ", colors_factor_sum[i]);
+    //     printf("%llu ", colors_factor_sum[i]);
     // }
     // printf("\n");
 
     // Choose the color with the biggest color_factor_sum
     char color = 0;
-    int color_factor = 0;
+    unsigned long long int color_factor = 0;
 
     for (int k = 0; k < map->possible_colors; k++) {
-        // printf("    [choose_move] Checking color %d in index %d\n", k + 1, k);
+        // printf("        [choose_move] Checking color %d in index %d\n", k + 1, k);
         if (colors_factor_sum[k] > color_factor) {
-            // printf("    [choose_move] Bigger than the original color factor: %d vs %d\n", colors_factor_sum[k], color_factor);
+            // printf("        [choose_move] Bigger than the original color factor: %llu vs %llu\n", colors_factor_sum[k], color_factor);
             color = (char)k;
             color_factor = colors_factor_sum[k];
-            // printf("    [choose_move] Color now %d and color factor %d\n", color, color_factor);
+            // printf("        [choose_move] Color now %d and color factor %llu\n", color, color_factor);
         }
     }
 
     // NOTE: Assumes that for K possible colors, colors go from [1, K]. So increase 1 in the color.
     // printf("[choose_move] Chose color in index %d\n", color);
     color += 1;
-    // printf("[choose_move] Chose color: %d\n", color);
+    // printf("[choose_move] Chose color: %d. Smallest distance is %d.\n", color, smallest_distance);
 
     free(colors_factor_sum);
     free(frontier_segments);
@@ -215,12 +218,14 @@ int choose_move(Map_t *map) {
 
 void solve_most_distant_segment(Map_t *map, int moves_before_recalculating, int seg_count_cap) {
     while (map->segment_count > seg_count_cap) {
+        // printf("Updating graph\n");
         update_graph(map);
 
         int moves_done = 0;
         int reached_target = 0;
 
         while (moves_done < moves_before_recalculating && map->segment_count > 1 && !reached_target) {
+            // printf("Choosing move\n");
             reached_target = choose_move(map);
             moves_done += 1;
         }

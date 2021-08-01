@@ -204,7 +204,7 @@ void merge(Segment_t *segment_1, Segment_t *segment_2) {
 }
 
 void print_segment(Segment_t *segment) {
-    printf("    [print_segment] Segment [%p] id: %d / size: %d / frontiers: %p, frontiers_count: %d / color: %d / gs_visited: %d, gs_factor: %d, gs_distance_to_initial: %d, gs_distance_to_target: %d\n", segment, segment->id, segment->size, segment->frontiers, segment->frontiers_count, segment->color, segment->gs_visited, segment->gs_factor, segment->gs_distance_to_initial, segment->gs_distance_to_target);
+    printf("    [print_segment] Segment [%p] id: %d / size: %d / frontiers: %p, frontiers_count: %d / color: %d / gs_visited: %d, gs_factor: %llu, gs_distance_to_initial: %d, gs_distance_to_target: %d\n", segment, segment->id, segment->size, segment->frontiers, segment->frontiers_count, segment->color, segment->gs_visited, segment->gs_factor, segment->gs_distance_to_initial, segment->gs_distance_to_target);
 }
 
 void remove_frontier_node(Segment_t *segment, int position) {

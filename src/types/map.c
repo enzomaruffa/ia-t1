@@ -238,7 +238,7 @@ void create_map(Map_t *map, char *matrix, char width, char height, char possible
 
                 new_segment->gs_distance_to_initial = -1;
                 new_segment->gs_distance_to_target = -1;
-                new_segment->gs_factor = -1;
+                new_segment->gs_factor = 0;
                 new_segment->gs_visited = 0;
 
                 new_segment->color = matrix[i * width + j];

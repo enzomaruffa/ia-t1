@@ -26,7 +26,7 @@ int main() {
 
     free(map_cells);
 
-    print_full_map(map);
+    // print_full_map(map);
 
     clock_t start;
     clock_t end;
