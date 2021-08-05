@@ -473,7 +473,7 @@ void print_map(Map_t *map) {
 }
 
 void print_full_map(Map_t *map) {
-    printf("=================\n");
+    // printf("=================\n");
     print_map(map);
 
     for (int i = 0; i < map->segment_count; i++) {
@@ -490,7 +490,7 @@ void print_full_map(Map_t *map) {
             }
         }
     }
-    printf("=================\n");
+    // printf("=================\n");
 }
 
 void print_solution(Map_t *map) {

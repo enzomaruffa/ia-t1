@@ -61,7 +61,7 @@ char read_map(char *map_dest, char line_count) {
     while (total_lines_read < line_count) {
         pch = strtok(buffer, " ");
 
-        while (pch != NULL) {
+        while (pch != NULL && pch[0] != '\0' && pch[0] != '\n') {
             map_dest[total_read] = atoi(pch);
             total_read += 1;
 
