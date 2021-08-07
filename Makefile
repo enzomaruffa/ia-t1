@@ -1,4 +1,4 @@
-CC := clang
+CC := cc
 SRCDIR := src
 BUILDDIR := obj
 TARGET := solver

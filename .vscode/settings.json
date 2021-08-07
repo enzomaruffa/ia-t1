@@ -5,6 +5,8 @@
         "map.h": "c",
         "segment.h": "c",
         "biggest_segment.h": "c",
-        "biggest_resulting_segment.h": "c"
+        "biggest_resulting_segment.h": "c",
+        "most_distant_segment.h": "c",
+        "composite_heuristic.h": "c"
     }
 }

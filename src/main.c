@@ -7,6 +7,7 @@
 #include "heuristics/first_segment.h"
 #include "heuristics/most_distant_segment.h"
 #include "heuristics/composite_heuristic.h"
+#include "heuristics/most_distant_segment_best.h"
 #include "utils/utils.h"
 
 int main() {
@@ -295,6 +296,17 @@ int main() {
     printf("Total time: %f\n", seconds);
 
     free_map(composite_clone);
+
+    printf("\n === Solving by best === \n");
+    start = clock();
+    Map_t *best_map = solve_most_distant_segment_best(map, width * height, 1);
+    print_solution(best_map);
+
+    end = clock();
+    seconds = (float)(end - start) / CLOCKS_PER_SEC;
+    printf("Total time: %f\n", seconds);
+
+    free_map(best_map);
 
     free_map(map);
     return 0;
