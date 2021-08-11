@@ -5,13 +5,13 @@
 #include "most_distant_segment.h"
 
 Map_t *solve_most_distant_segment_best(Map_t *map, int total_map_cells, int seg_count_cap) {
-    int check_limit = total_map_cells > 150 ? 150 : total_map_cells;
+    int check_limit = total_map_cells > 100 ? 100 : total_map_cells;
 
     // printf("[solve_most_distant_segment_best] Total map cells: %d...\n", total_map_cells);
 
     Map_t *best_solution = NULL;
 
-    // Any big enought value so that any solution is better
+    // Any big enough value so that any solution is better
     int best_solution_moves_count = total_map_cells + 10;
 
     for (int i = 1; i < check_limit; i++) {
