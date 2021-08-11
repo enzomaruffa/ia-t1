@@ -44,6 +44,7 @@ Segment_t *forward_propagate(Segment_t *initial_segment, Segment_t **queue_segme
             }
         }
 
+        free(frontier_segments);
         current_segment_iteration += 1;
 
         // Curently prioritizes the one with the biggest distance and smalles factor
@@ -207,6 +208,7 @@ int choose_move(Map_t *map) {
     color += 1;
     // printf("[choose_move] Chose color: %d. Smallest distance is %d.\n", color, smallest_distance);
 
+    free(colors_smallest_distances);
     free(colors_factor_sum);
     free(frontier_segments);
 
