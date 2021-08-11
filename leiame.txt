@@ -1,0 +1,56 @@
+emm17 - GRR20171626
+
+Flood It - Trabalho 1 de IA 
+
+----------------
+A estratégia utilizada no algoritmo é baseada no preenchimento da cor com menor distância do segmento mais distante. 
+A distância é calculada pelo número de jogadas necessário para realizar a pintura, e não a posição na matriz.
+
+Explicação detalhada:
+
+Algumas definições são necessárias para a explicação completa: 
+Por SEGMENTO, define-se um conjunto de células da matriz que são vizinhas e possuem a mesma cor. Um segmento pode ter tamanho 1 (por exemplo, uma célula que não é vizinha de nenhuma outra com sua cor) ou maior.
+Por FRONTEIRA, define-se uma célula de um SEGMENTO que é vizinha de outro SEGMENTO (e, por consequência, de outra FRONTEIRA).
+Por DIREÇÃO, define-se uma direção na qual uma FRONTEIRA é vizinha de algo. Caso uma FRONTEIRA seja vizinha de mais que um segmento (ou seja vizinha de um mesmo segmento em duas direções diferentes), a FRONTEIRA possuirá duas direções.
+
+Em um exemplo prático, dado o mapa com as cores A e B: 
+AAA
+BAB
+
+Existem: 
+Um SEGMENTO da cor A com tamanho 4 e com 3 FRONTEIRAS. Estas são: 
+    Uma FRONTEIRA em (0, 0) com 1 DIREÇÃO. Esta é: 
+        Uma DIREÇÃO apontando para baixo e conectada com o nó de FRONTEIRA em (1, 0)
+    Uma FRONTEIRA em (0, 2) com 1 DIREÇÃO. Esta é: 
+        Uma DIREÇÃO apontando para baixo e conectada com o nó de FRONTEIRA em (1, 2)
+    Uma FRONTEIRA em (1, 1) com 2 DIREÇÕES. Estas são: 
+        Uma DIREÇÃO apontando para a esquerda e conectada com o nó de FRONTEIRA em (1, 0)
+        Uma DIREÇÃO apontando para a direita e conectada com o nó de FRONTEIRA em (1, 2)
+Um SEGMENTO da cor B com tamanho 1 e com 1 FRONTEIRA. Esta é: 
+    Uma FRONTEIRA em (1, 0) com 1 DIREÇÃO. Esta é: 
+        Uma DIREÇÃO apontando para a direita e conectada com o nó de FRONTEIRA em (1, 1)
+Um SEGMENTO da cor B com tamanho 1 e com 1 FRONTEIRA. Esta é: 
+    Uma FRONTEIRA em (1, 2) com 1 DIREÇÃO. Esta é: 
+        Uma DIREÇÃO apontando para a esquerda e conectada com o nó de FRONTEIRA em (1, 1)
+
+Na implementação, um pré-processamento da matriz é realizado para formar a estrutura acima. Como consequência, vence-se a parte mais custosa da busca do segmento mais distante em uma matriz: a ausência de um grafo.
+Com a estrutura acima, é possível realizar uma busca em largura saindo do segmento inicial buscando o nó mais distante com bastante facilidade, e é exatamente isso que é feito na solução desenvolvida.
+
+Porém, ainda existe um desafio restante: desempates. Em um mapa com grande variação de cores, diversos segmentos vizinhos podem apresentar mesma distância do nó mais distante - e desempatar corretamente torna-se importante.
+Para resolver o problema dos desepates, um "fator" adicional foi resolvido (pode ser encontrado no código por `gs_factor`). Esse fator existe em cada segmento e é atualizado no momento da busca do nó mais distante, sendo definido por: a quantidade de FRONTEIRAS do segmento somada do FATOR de todos os vizinhos que apresentam distância menor que a atual.
+Como o grafo é atualizado por uma busca em largura, o fator acaba sendo "carregado" dos segmentos para a frente. O objetivo com o fator foi definir um grau de "conexão" de um SEGMENTO - e consequentemente um caminho a se fazer. Algumas outras alternativas para cálculo do fator foram testadas, apresentando desempenho pior.
+
+Para a definição do nó mais distante em caso de empate, usa-se a mesma abordagem: o nó com a maior distância do segmento inicial e com o maior fator.
+
+Após encontrado o nó mais distante, uma busca "para trás" é realizada, definindo-se assim um menor caminho.
+
+Existe uma outra variável em questão: quantas jogadas devem ser feitas antes de se recalcular qual o novo segmento mais distante. 
+Diversos valores apresentaram desempenhos diferentes, então uma "força bruta" é realizada. Como a busca no grafo e jogadas em sequências acabam sendo bastante rápidas, TODAS as possibilidades do processo acima são testadas realizando de 1 até 100 jogadas antes de se refazer o cálculo. 
+Dentre as 100 execuções, a melhor é retornada e apresentada.
+
+
+
+Outros tópicos: 
+- A etapa de pré-processamento acaba sendo executada bastante rápidamente, mas utiliza bastante alocação de memória. Por consequência, a clonagem de um mapa pré-processado acaba sendo bastante lenta com relação a clonagem de uma matriz. Como consequência, testes com o A* tornaram-se bastante lentos em mapa maiores e optei por seguir esse caminho um pouco diferentes
+- A solução atual, para redução de memória, não foi feita para suportar mapas muito maiores que 100x100. Com algumas mudanças, consegui executar mapas de até 250x250, mas com performance bastante reduzida.
+- Uma grande quantidade de heurísticas de testes foram implementadas baseadas no pré-processamento e podem ser encontradas na pasta `src/heuristics`, mas apenas a `most_distant_segment` e `most_distant_segment_best` são utilizadas de fato
