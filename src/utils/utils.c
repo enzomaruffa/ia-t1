@@ -17,9 +17,8 @@ float point_squared_distance(char x_1, char y_1, char x_2, char y_2) {
 
 char read_parameters(char *width, char *height, char *colors_count) {
     char buffer[MAX_PARAMETERS_BUFFER_SIZE];
-    char *fgets_return = fgets(buffer, MAX_PARAMETERS_BUFFER_SIZE, stdin);
+    fgets(buffer, MAX_PARAMETERS_BUFFER_SIZE, stdin);
     // Silence warning
-    fgets_return = NULL;
     
     char *pch;
     pch = strtok(buffer, " ");
@@ -51,7 +50,7 @@ char read_parameters(char *width, char *height, char *colors_count) {
 
 char read_map(char *map_dest, char line_count) {
     char buffer[MAX_MAP_LINE_BUFFER_SIZE];
-    char *fgets_return = fgets(buffer, MAX_MAP_LINE_BUFFER_SIZE, stdin);
+    fgets(buffer, MAX_MAP_LINE_BUFFER_SIZE, stdin);
     char *pch;
 
     int total_lines_read = 0;
@@ -67,7 +66,7 @@ char read_map(char *map_dest, char line_count) {
             pch = strtok(NULL, " ");
         }   
 
-        fgets_return = fgets(buffer, MAX_MAP_LINE_BUFFER_SIZE, stdin);
+        fgets(buffer, MAX_MAP_LINE_BUFFER_SIZE, stdin);
         total_lines_read += 1;
     }
 
