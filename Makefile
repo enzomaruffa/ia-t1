@@ -6,7 +6,7 @@ TARGET := solver
 SOURCES := $(shell find $(SRCDIR) -type f -name *.c)
 OBJECTS := $(patsubst $(SRCDIR)/%, $(BUILDDIR)/%, $(SOURCES:.c=.o))
 
-CFLAGS := -g -O2 -Wall -Wextra -Isrc -Isrc/types -Wno-unused-value
+CFLAGS := -g -O2 -Wall -Wextra -Isrc -Isrc/types -Wno-unused-result
 LIB := -g -lm
 
 $(TARGET): $(OBJECTS)
